@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     @include('layouts.dashboard.head')
@@ -9,7 +9,7 @@
     <div class="wrapper">
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
-                <a class="sidebar-brand" href="index.html">
+                <a class="sidebar-brand" href="{{ route('dashboard') }}">
                     <img src="{{ asset('asset_dashboard/img/photos/logo.png') }}" alt="">
                 </a>
 

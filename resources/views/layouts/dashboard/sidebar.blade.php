@@ -2,16 +2,20 @@
     Pages
 </li>
 
-<li class="sidebar-item active">
-    <a class="sidebar-link" href="index.html">
+<li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard') }}">
         <i class="align-middle" data-feather="sliders"></i> <span
             class="align-middle">Dashboard</span>
     </a>
 </li>
-
-<li class="sidebar-item">
-    <a class="sidebar-link" href="pages-profile.html">
-        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+<li class="sidebar-item {{ request()->routeIs('dashboard.sliders.*') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard.sliders.index') }}">
+        <i class="align-middle" data-feather="image"></i> <span class="align-middle">Slider Welcome</span>
+    </a>
+</li>
+<li class="sidebar-item {{ request()->routeIs('dashboard.agenda.*') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard.agenda.index') }}">
+        <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Agenda</span>
     </a>
 </li>
 
@@ -82,7 +86,13 @@
 </li>
 
 <li class="sidebar-item">
-    <a class="sidebar-link" href="maps-google.html">
-        <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+    <a class="sidebar-link" href="javascript:void(0)">
+        <i class="align-middle"></i> <span class="align-middle">Pangaturan</span>
     </a>
+
+    <ul class="navbar-nav">
+        <li class="sidebar-item">
+            <a class="sidebar-link" href="{{ route('dashboard.roles.index') }}">Role</a>
+        </li>
+    </ul>
 </li>
