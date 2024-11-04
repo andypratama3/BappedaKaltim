@@ -15,12 +15,13 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/', DashboardController::class)->name('dashboard');
 
     Route::resource('agenda', AgendaController::class, ['names' => 'dashboard.agenda']);
-
     Route::resource('slider', WelcomeSliderController::class, ['names'=> 'dashboard.sliders']);
 
 
+    // Prefix for Datatable
     Route::group(['prefix' => 'datas'], function () {
         Route::get('sliders', [WelcomeSliderController::class, 'data_table'])->name('sliders.data_table');
+        Route::get('agendas', [AgendaController::class, 'data_table'])->name('agenda.data_table');
     });
 
     Route::group(['prefix' => 'pengaturan'], function () {

@@ -34,7 +34,7 @@ class WelcomeSliderController extends Controller
                     $actions .= '<a href="' . route('dashboard.sliders.edit', $row->slug) . '" class="btn btn-sm btn-primary me-2 "><i class="bx bxs-edit"></i></a>';
                 // }
                 // if (auth()->user()->can('slider-delete')) {
-                    $actions .= '<a href="javascript:void(0)" onclick="deleteData(' . $row->slug . ')" class="btn btn-sm btn-danger me-2 "><i class="bx bxs-trash"></i></a>';
+                    $actions .= '<button data-id="'.$row['slug'].'" class="btn btn-sm btn-danger btn-delete me-2"><i class="bx bxs-trash"></i></button>';
                 // }
 
                 return $actions;
@@ -70,6 +70,7 @@ class WelcomeSliderController extends Controller
             'expired_date' => $request->expired_date,
             'link' => $request->link,
             'orders' => $request->orders,
+            'active' => $request->active,
             'image' => $picture_name,
         ]);
 
@@ -89,6 +90,15 @@ class WelcomeSliderController extends Controller
     public function update(Request $request, WelcomeSlider $slider)
     {
 
+        $request->validate([
+            'title' => 'required',
+            'expired_date' => 'required',
+            'link' => 'required',
+            'orders' => 'required',
+            'active' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $upload_path = public_path('storage/slider/');
@@ -104,9 +114,21 @@ class WelcomeSliderController extends Controller
             'expired_date' => $request->expired_date,
             'link' => $request->link,
             'orders' => $request->orders,
+            'active' => $request->active,
             'image' => $picture_name,
         ]);
 
         return redirect()->route('dashboard.sliders.index')->with('success', 'Berhasil Mengedit Slider');
+    }
+
+    public function destroy(WelcomeSlider $slider)
+    {
+        $action = $slider->delete();
+
+        if($action) {
+            return response()->json(['status' => 'success','message'=> 'Berhasil Menghapus Slider']);
+        } else {
+            return response()->json(['status' => 'error','message'=> 'Gagal Menghapus Slider']);
+        }
     }
 }

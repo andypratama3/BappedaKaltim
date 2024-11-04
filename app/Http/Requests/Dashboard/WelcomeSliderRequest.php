@@ -25,7 +25,7 @@ class WelcomeSliderRequest extends FormRequest
             "title" => "string|nullable",
             "expired_date" => "date|nullable",
             "image" => "required|mimes:jpg,jpeg,png|max:2048",
-            "active" => "integer|in:0,1",
+            "active" => "required",
             "link" => "string|nullable",
             "orders" => "integer|nullable",
         ];

@@ -6,10 +6,10 @@
 </h1>
 
 <div class="row">
-    <div class="col-xl-12 col-xxl-7 d-flex">
+    <div class="col-md-12 d-flex">
         <div class="w-100">
             <div class="row">
-                <div class="col-sm-6 col-md-12">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
                             @include('layouts.flashmessage')
@@ -33,9 +33,12 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="caption" class="form-label">Status</label>
-                                        <input type="text" class="form-control @error('caption') is-invalid @enderror" id="caption" name="caption" maxlength="512" value="{{ old('caption') }}">
-                                        @error('caption')
+                                        <label for="active" class="form-label">Status</label>
+                                        <select class="form-select @error('active') is-invalid @enderror" id="active" name="active">
+                                            <option value="0" {{ old('active') == 0 ? 'selected' : '' }}>Tidak Aktif</option>
+                                            <option value="1" {{ old('active') == 1 ? 'selected' : '' }}>Aktif</option>
+                                        </select>
+                                        @error('active')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>

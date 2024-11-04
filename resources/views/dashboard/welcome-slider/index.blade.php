@@ -16,6 +16,7 @@
                 <div class="table-responsive">
                     <table class="table table-stripped" id="slider_table">
                         <thead>
+
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Judul</th>
@@ -65,46 +66,42 @@
                         { data: 'action', name: 'action', orderable: false,searchable: false},
                     ],
                 });
-                $('#slider_table').on('click', '#btn-delete', function () {
+                $('#slider_table').on('click', '.btn-delete', function () {
                     var slug = $(this).data('id');
-                    var url = '{{ route("dashboard.sliders.destroy", ":slug") }}'; // Use the correct route name "destroy"
+                    var url = '{{ route("dashboard.sliders.destroy", ":slug") }}';
                     url = url.replace(':slug', slug);
-                    swal({
+                    Swal.fire({
                         title: 'Anda yakin?',
                         text: 'Data yang sudah dihapus tidak dapat dikembalikan!',
                         icon: 'warning',
-                        buttons: true,
+                        showCancelButton: true,
+                        confirmButtonText: 'Hapus',
+                        cancelButtonText: 'Batal',
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
                         dangerMode: true,
-                    }).then((willDelete) => {
-                        if (willDelete) {
+                        reverseButtons: true,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
                             $.ajaxSetup({
                                 headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                 }
                             });
 
-                            // Send a DELETE request
                             $.ajax({
                                 url: url,
-                                type: 'DELETE', // Use the DELETE method
+                                type: 'DELETE',
                                 success: function (data) {
                                     if (data.status === 'success') {
-                                        swal('Berhasil', data.message, 'success').then(() => {
-
-                                            // Reload the page with a success message
-                                            // reload datatable
-                                            reloadTable('#artikel_table');
-
+                                        Swal.fire('Berhasil', data.message, 'success').then(() => {
+                                            reloadTable('#slider_table');
                                         });
                                     } else {
-                                        // Reload the page with an error message
-                                        swal('Error', data.message, 'error');
-
+                                        Swal.fire('Error', data.message, 'error');
                                     }
                                 },
                             });
-                        } else {
-                            // If the user cancels the deletion, do nothing
                         }
                     });
                 });

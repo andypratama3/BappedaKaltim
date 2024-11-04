@@ -11,13 +11,11 @@
 {{-- DataTable  --}}
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 <script>
-    $(document).ready(function () {
-        function reloadTable(id){
-            let table = $(id).DataTable();
-            table.cleanData;
-            table.ajax.reload();
-        }
-    });
+    function reloadTable(id){
+        let table = $(id).DataTable();
+        table.cleanData;
+        table.ajax.reload();
+    }
 </script>
 
 @stack('js')
