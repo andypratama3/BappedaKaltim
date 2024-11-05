@@ -1,0 +1,129 @@
+<?php
+
+namespace App\Http\Controllers\Dashboard;
+
+use App\Models\DataCenter;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\CategoryDataCenter;
+use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
+
+class DataCenterController extends Controller
+{
+    public function index()
+    {
+        return view('dashboard.data-center.index');
+    }
+
+    public function data_table()
+    {
+        $data_center = DataCenter::with('category')->orderBy('name', 'asc')->get();
+
+        return DataTables::of($data_center)
+            ->addColumn('category', function ($row) {
+                return $row->category->name ?? '-';
+            })
+            ->addColumn('file', function ($row) {
+                return '<a href="' . asset('storage/file/data-center/' . $row->file) . '" target="_blank">' . $row->file . '</a>';
+            })
+            ->addColumn('action', function ($row) {
+                $actions = '';
+
+                // $actions .= '<a href="' . route('dashboard.data.center.show', $row->slug) . '" class="btn btn-sm btn-warning me-2 "><i class="bx bxs-show"></i></a>';
+                $actions .= '<a href="' . route('dashboard.data.center.edit', $row->slug) . '" class="btn btn-sm btn-primary me-2 "><i class="bx bxs-edit"></i></a>';
+                $actions .= '<button data-id="'.$row['slug'].'" class="btn btn-sm btn-danger btn-delete me-2"><i class="bx bxs-trash"></i></button>';
+
+
+                return $actions;
+            })
+            ->addIndexColumn()
+            ->rawColumns(['action','file'])
+            ->make(true);
+    }
+
+    public function create()
+    {
+        $categorys = CategoryDataCenter::orderBy('name', 'desc')->get();
+        return view('dashboard.data-center.create', compact('categorys'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'category_data_center_id' => 'required',
+            'file' => 'required|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png',
+        ]);
+
+        $file_name = null;
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $upload_path = public_path('storage/file/data-center/');
+            $file_name = 'DataCenter_' . Str::slug(Str::random(6)) . '_' . date('YmdHis') . '.' . $file->getClientOriginalExtension();
+
+            $file->move($upload_path, $file_name);
+        }
+
+        $data_center = DataCenter::create([
+            'name' => $request->name,
+            'order' => $request->order,
+            'file' => $file_name,
+            'category_data_center_id' => $request->category_data_center_id,
+        ]);
+
+        return redirect()->route('dashboard.data.center.index')->with('success', 'Data Center berhasil ditambahkan');
+
+    }
+
+    public function edit($slug)
+    {
+        $dataCenter = DataCenter::with('category')->where('slug', $slug)->first();
+        $categorys = CategoryDataCenter::orderBy('name', 'desc')->get();
+        return view('dashboard.data-center.edit', compact('dataCenter', 'categorys'));
+    }
+
+    public function update(Request $request, $slug)
+    {
+        $request->validate([
+            'name' => 'required',
+            'category_data_center_id' => 'required',
+            'file' => 'mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png',
+        ]);
+
+        $data_center = DataCenter::where('slug', $slug)->first();
+        $file_name = null;
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $upload_path = public_path('storage/file/data-center/');
+            $file_name = 'DataCenter_' . Str::slug(Str::random(6)) . '_' . date('YmdHis') . '.' . $file->getClientOriginalExtension();
+
+            $file->move($upload_path, $file_name);
+        }else{
+            $file_name = $data_center->file;
+        }
+
+        $data_center->update([
+            'name'=> $request->name,
+            'order'=> $request->order,
+            'category_data_center_id'=> $request->category_data_center_id,
+            'file' => $file_name,
+        ]);
+
+        return redirect()->route('dashboard.data.center.index')->with('success', 'Data Center berhasil diupdate');
+    }
+
+    public function destroy($slug)
+    {
+        $data_center = DataCenter::where('slug', $slug)->first();
+        $action = $data_center->delete();
+
+        if($action) {
+            return response()->json(['status' => 'success','message'=> 'Berhasil Menghapus Data Center']);
+        } else {
+            return response()->json(['status' => 'error','message'=> 'Gagal Menghapus Data Center']);
+        }
+    }
+}

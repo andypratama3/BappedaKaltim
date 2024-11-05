@@ -18,10 +18,14 @@
         <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Agenda</span>
     </a>
 </li>
-
-<li class="sidebar-item">
-    <a class="sidebar-link" href="pages-sign-in.html">
-        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
+<li class="sidebar-item {{ request()->routeIs('dashboard.category.data.center.*') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard.category.data.center.index') }}">
+        <i class="align-middle" data-feather="category"></i> <span class="align-middle">Kategori Data Center</span>
+    </a>
+</li>
+<li class="sidebar-item {{ request()->routeIs('dashboard.data-center.*') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard.data.center.index') }}">
+        <i class="align-middle" data-feather="database"></i> <span class="align-middle">Data Center</span>
     </a>
 </li>
 

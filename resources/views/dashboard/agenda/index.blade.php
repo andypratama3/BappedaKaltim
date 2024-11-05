@@ -46,7 +46,7 @@
                     stateSave: true,
                     pageLength: 50,
                     ajax: {
-                        'url': '{{ route("agenda.data_table") }}',
+                        'url': '{{ route("dashboard.agenda.data_table") }}',
                     },
                     columns: [
                         { data: 'DT_RowIndex',name: 'DT_RowIndex',orderable: false,searchable: false},

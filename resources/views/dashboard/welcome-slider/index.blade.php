@@ -47,7 +47,7 @@
                     stateSave: true,
                     pageLength: 50,
                     ajax: {
-                        'url': '{{ route("sliders.data_table") }}',
+                        'url': '{{ route("dashboard.sliders.data_table") }}',
                     },
                     columns: [
                         { data: 'DT_RowIndex',name: 'DT_RowIndex',orderable: false,searchable: false},
