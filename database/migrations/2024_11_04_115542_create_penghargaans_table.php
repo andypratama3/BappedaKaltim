@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('foto');
-            $table->integer('popup')->nullable();
             $table->string('slug');
             $table->softDeletes();
             $table->timestamps();

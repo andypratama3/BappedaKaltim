@@ -18,21 +18,47 @@
         <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Agenda</span>
     </a>
 </li>
-<li class="sidebar-item {{ request()->routeIs('dashboard.category.data.center.*') ? 'active' : '' }}">
-    <a class="sidebar-link" href="{{ route('dashboard.category.data.center.index') }}">
-        <i class="align-middle" data-feather="category"></i> <span class="align-middle">Kategori Data Center</span>
-    </a>
-</li>
-<li class="sidebar-item {{ request()->routeIs('dashboard.data-center.*') ? 'active' : '' }}">
-    <a class="sidebar-link" href="{{ route('dashboard.data.center.index') }}">
+
+
+<li class="sidebar-item ">
+    <a class="sidebar-link {{ request()->routeIs('dashboard.data.center.*') || request()->routeIs('dashboard.category.data.center.*') ? 'collapsed' : '' }}" href="#dataCenterDropdown" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="dataCenterDropdown">
         <i class="align-middle" data-feather="database"></i> <span class="align-middle">Data Center</span>
     </a>
+    <ul class="collapse list-unstyled mx-4 {{ request()->routeIs('dashboard.data.center.*') || request()->routeIs('dashboard.category.data.center.*') ? 'show' : '' }}" id="dataCenterDropdown">
+        <li class="sidebar-item {{ request()->routeIs('dashboard.category.data.center.*') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('dashboard.category.data.center.index') }}">
+                <i class="align-middle" data-feather="list"></i><span class="align-middle">Kategori Data</span>
+            </a>
+        </li>
+        <li class="sidebar-item {{ request()->routeIs('dashboard.data.center.index') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('dashboard.data.center.index') }}">
+                <i class="align-middle" data-feather="database"></i><span class="align-middle">Data Center</span>
+            </a>
+        </li>
+    </ul>
 </li>
 
-<li class="sidebar-item">
-    <a class="sidebar-link" href="pages-sign-up.html">
-        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign
-            Up</span>
+<li class="sidebar-item ">
+    <a class="sidebar-link {{ request()->routeIs('dashboard.data.center.*') || request()->routeIs('dashboard.category.data.center.*') ? 'collapsed' : '' }}" href="#dataCenterDropdown" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="dataCenterDropdown">
+        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Postingan</span>
+    </a>
+    <ul class="collapse list-unstyled mx-4 {{ request()->routeIs('dashboard.data.center.*') || request()->routeIs('dashboard.category.data.center.*') ? 'show' : '' }}" id="dataCenterDropdown">
+        <li class="sidebar-item {{ request()->routeIs('dashboard.category.data.center.*') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('dashboard.category.data.center.index') }}">
+                <i class="align-middle" data-feather="list"></i><span class="align-middle">Kategori Data</span>
+            </a>
+        </li>
+        <li class="sidebar-item {{ request()->routeIs('dashboard.data.center.index') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('dashboard.data.center.index') }}">
+                <i class="align-middle" data-feather="database"></i><span class="align-middle">Data Center</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+<li class="sidebar-item {{ request()->routeIs('dashboard.penghargaan.*') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard.penghargaan.index') }}">
+        <i class="align-middle" data-feather="award"></i> <span class="align-middle">Penghargaan</span>
     </a>
 </li>
 
