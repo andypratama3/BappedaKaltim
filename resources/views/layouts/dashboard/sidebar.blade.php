@@ -23,6 +23,7 @@
 <li class="sidebar-item ">
     <a class="sidebar-link {{ request()->routeIs('dashboard.data.center.*') || request()->routeIs('dashboard.category.data.center.*') ? 'collapsed' : '' }}" href="#dataCenterDropdown" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="dataCenterDropdown">
         <i class="align-middle" data-feather="database"></i> <span class="align-middle">Data Center</span>
+        <i class="align-middle float-end" data-feather="chevron-right"></i>
     </a>
     <ul class="collapse list-unstyled mx-4 {{ request()->routeIs('dashboard.data.center.*') || request()->routeIs('dashboard.category.data.center.*') ? 'show' : '' }}" id="dataCenterDropdown">
         <li class="sidebar-item {{ request()->routeIs('dashboard.category.data.center.*') ? 'active' : '' }}">
@@ -39,18 +40,19 @@
 </li>
 
 <li class="sidebar-item ">
-    <a class="sidebar-link {{ request()->routeIs('dashboard.data.center.*') || request()->routeIs('dashboard.category.data.center.*') ? 'collapsed' : '' }}" href="#dataCenterDropdown" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="dataCenterDropdown">
+    <a class="sidebar-link {{ request()->routeIs('dashboard.post.*') ? 'collapsed' : '' }}" href="#post" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="post">
         <i class="align-middle" data-feather="book"></i> <span class="align-middle">Postingan</span>
+        <i class="align-middle float-end" data-feather="chevron-right"></i>
     </a>
-    <ul class="collapse list-unstyled mx-4 {{ request()->routeIs('dashboard.data.center.*') || request()->routeIs('dashboard.category.data.center.*') ? 'show' : '' }}" id="dataCenterDropdown">
-        <li class="sidebar-item {{ request()->routeIs('dashboard.category.data.center.*') ? 'active' : '' }}">
-            <a class="sidebar-link" href="{{ route('dashboard.category.data.center.index') }}">
-                <i class="align-middle" data-feather="list"></i><span class="align-middle">Kategori Data</span>
+    <ul class="collapse list-unstyled mx-4 {{ request()->routeIs('dashboard.post.*') ? 'show' : '' }}" id="post">
+        <li class="sidebar-item {{ request()->routeIs('dashboard.post.category.*') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('dashboard.post.category.index') }}">
+                <i class="align-middle" data-feather="list"></i><span class="align-middle">Kategori Postingan</span>
             </a>
         </li>
-        <li class="sidebar-item {{ request()->routeIs('dashboard.data.center.index') ? 'active' : '' }}">
-            <a class="sidebar-link" href="{{ route('dashboard.data.center.index') }}">
-                <i class="align-middle" data-feather="database"></i><span class="align-middle">Data Center</span>
+        <li class="sidebar-item {{ request()->routeIs('dashboard.post.news.index') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('dashboard.post.news.index') }}">
+                <i class="align-middle" data-feather="book"></i><span class="align-middle">Postingan</span>
             </a>
         </li>
     </ul>
