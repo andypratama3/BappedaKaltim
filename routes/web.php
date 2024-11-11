@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\MapsController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\AgendaController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -16,7 +17,7 @@ Route::get('/', function () {
 });
 
 
-Route::group(['prefix' => 'dashboard'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', DashboardController::class)->name('dashboard');
 
     Route::resource('agenda', AgendaController::class, ['names' => 'dashboard.agenda']);
@@ -24,7 +25,7 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::resource('penghargaan', PenghargaanController::class, ['names' => 'dashboard.penghargaan']);
     Route::resource('category-data-center', CategoryDataCenterController::class, ['names' => 'dashboard.category.data.center']);
     Route::resource('data-center', DataCenterController::class, ['names'=> 'dashboard.data.center'])->except('show');
-
+    Route::resource('maps', MapsController::class, ['names' => 'dashboard.maps'])->except('show');
 
     Route::group(['prefix' => 'post'], function () {
         Route::resource('category-post', CategoryPostController::class, ['names' => 'dashboard.post.category']);
@@ -41,11 +42,12 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('data-center', [DataCenterController::class, 'data_table'])->name('dashboard.data.center.data_table');
         Route::get('posts', [PostNewsController::class, 'data_table'])->name('dashboard.post.news.data_table');
         Route::get('category-post', [CategoryPostController::class, 'data_table'])->name('dashboard.post.category.data_table');
-
+        Route::get('maps-data', [MapsController::class, 'data_table'])->name('dashboard.maps.data_table');
     });
 
-    Route::group(['prefix' => 'pengaturan'], function () {
-        Route::resource('roles', RoleController::class, ['names' => 'dashboard.roles']);
+    Route::group(['prefix' => 'settings'], function () {
+        Route::resource('roles', RoleController::class, ['names' => 'dashboard.settings.roles']);
+        // Route::resource('permissions', PermissionController::class, ['names' => 'dashboard.settings.roles']);
     });
 });
 

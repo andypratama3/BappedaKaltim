@@ -39,6 +39,22 @@
     </ul>
 </li>
 
+{{-- Settings --}}
+<li class="sidebar-item ">
+    <a class="sidebar-link {{ request()->routeIs('dashboard.settings.*') ? 'collapsed' : '' }}" href="#settingsDropDown" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="settingsDropDown">
+        <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Pengaturan</span>
+        <i class="align-middle float-end" data-feather="chevron-right"></i>
+    </a>
+    <ul class="collapse list-unstyled mx-4 {{ request()->routeIs('dashboard.settings.*') ? 'show' : '' }}" id="settingsDropDown">
+    
+        <li class="sidebar-item {{ request()->routeIs('dashboard.settings.roles.*') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('dashboard.settings.roles.index') }}">
+                <i class="align-middle" data-feather="list"></i><span class="align-middle">Role</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
 <li class="sidebar-item ">
     <a class="sidebar-link {{ request()->routeIs('dashboard.post.*') ? 'collapsed' : '' }}" href="#post" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="post">
         <i class="align-middle" data-feather="book"></i> <span class="align-middle">Postingan</span>
@@ -61,6 +77,12 @@
 <li class="sidebar-item {{ request()->routeIs('dashboard.penghargaan.*') ? 'active' : '' }}">
     <a class="sidebar-link" href="{{ route('dashboard.penghargaan.index') }}">
         <i class="align-middle" data-feather="award"></i> <span class="align-middle">Penghargaan</span>
+    </a>
+</li>
+
+<li class="sidebar-item {{ request()->routeIs('dashboard.maps.*') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard.maps.index') }}">
+        <i class="align-middle bx bx-map" ></i> <span class="align-middle">Peta</span>
     </a>
 </li>
 
@@ -117,14 +139,3 @@
     </a>
 </li>
 
-<li class="sidebar-item">
-    <a class="sidebar-link" href="javascript:void(0)">
-        <i class="align-middle"></i> <span class="align-middle">Pangaturan</span>
-    </a>
-
-    <ul class="navbar-nav">
-        <li class="sidebar-item">
-            <a class="sidebar-link" href="{{ route('dashboard.roles.index') }}">Role</a>
-        </li>
-    </ul>
-</li>

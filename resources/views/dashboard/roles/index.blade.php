@@ -2,7 +2,7 @@
 @section('title','Dashboard')
 @section('content')
 <h1 class="h3 mb-3"><strong>List Role</strong>
-    <a href="{{ route('dashboard.roles.create') }}" class="btn btn-primary btn-sm float-end">
+    <a href="{{ route('dashboard.settings.roles.create') }}" class="btn btn-primary btn-sm float-end">
         <i class="bx bx-plus"></i>
         Tambah
     </a>

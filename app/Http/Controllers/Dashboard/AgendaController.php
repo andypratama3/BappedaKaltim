@@ -11,6 +11,17 @@ use App\Http\Requests\Dashboard\AgendaRequest;
 
 class AgendaController extends Controller
 {
+
+    public static function middleware(): array
+    {
+        return [
+            // 'permission:agenda-create|agenda-edit|agenda-delete|agenda-list|agenda-show',
+            new Middleware('permission:agenda-create|agenda-edit|agenda-delete|agenda-list|agenda-show', only: ['index', 'create', 'store']),
+            new Middleware('permission:agenda-edit', only: ['edit', 'update']),
+            new Middleware('permission:agenda-delete', only: ['destroy']),
+        ];
+    }
+
     public function index()
     {
         return view('dashboard.agenda.index');

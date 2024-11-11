@@ -16,6 +16,28 @@
         table.cleanData;
         table.ajax.reload();
     }
+
+    $('#logout').on('click', function () {
+        event.preventDefault();
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Logout!',
+            reverseButtons: true,
+            
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit();
+            }else{
+                Swal.fire('Cancelled', 'Cancel Logout', 'info');
+            }
+        })
+    })
 </script>
 
 @stack('js')
