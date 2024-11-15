@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title','Slider Welcome')
+@section('title','Agenda')
 @section('content')
 <h1 class="h3 mb-3">
     <strong>Agenda</strong>

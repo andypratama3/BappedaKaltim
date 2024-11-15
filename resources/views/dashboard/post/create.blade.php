@@ -102,6 +102,16 @@
                                     </div>
                                 </div>
 
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <label for="extra_photo" class="form-label">Foto Tambahan</label>
+
+                                        <input type="file" class="form-control @error('extra_photo') is-invalid @enderror" id="extra_photo" name="extra_photo[]" accept="image/*" multiple>
+                                        @error('extra_photo')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <div class="row mt-5">
                                     <div class="col-md-12 mt-5">
                                         <a href="{{ route('dashboard.post.news.index') }}" class="btn btn-danger">Kembali</a>
@@ -122,7 +132,7 @@
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.select2').select2();
             const toolbarOptions = [
                 ['bold', 'italic', 'underline', 'strike'],
@@ -171,6 +181,12 @@
                     'align': []
                 }],
 
+                ['link', 'image', 'video'],
+
+                ['formula'],
+                // attach media
+                ['image', 'video'],
+
                 ['clean']
             ];
 
@@ -180,8 +196,10 @@
                 },
                 theme: 'snow'
             });
-            quill.on('text-change', function (delta, oldDelta, source){
+            quill.on('text-change', function (delta, oldDelta, source) {
                 $('#content-editor').text($('.ql-editor').html());
+                // take value media
+
                 // console.log($(".ql-editor").html());
             });
         });

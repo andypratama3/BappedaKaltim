@@ -88,6 +88,7 @@ class PostNewsController extends Controller
         }
 
 
+            
         $post = PostNew::create([
             'title' => $request->title,
             'description' => $request->description,

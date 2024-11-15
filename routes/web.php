@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\MapsController;
 use App\Http\Controllers\Dashboard\RoleController;
+use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\AgendaController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DataCenterController;
@@ -43,11 +44,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('posts', [PostNewsController::class, 'data_table'])->name('dashboard.post.news.data_table');
         Route::get('category-post', [CategoryPostController::class, 'data_table'])->name('dashboard.post.category.data_table');
         Route::get('maps-data', [MapsController::class, 'data_table'])->name('dashboard.maps.data_table');
+        Route::get('roles-data', [RoleController::class, 'data_table'])->name('dashboard.settings.roles.data_table');
     });
 
     Route::group(['prefix' => 'settings'], function () {
         Route::resource('roles', RoleController::class, ['names' => 'dashboard.settings.roles']);
-        // Route::resource('permissions', PermissionController::class, ['names' => 'dashboard.settings.roles']);
+        Route::resource('users', UserController::class, ['names' => 'dashboard.settings.users']);
     });
 });
 

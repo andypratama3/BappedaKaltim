@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('tags')->nullable();
             $table->string('image');
             $table->enum('status', ['draft', 'published', 'trashed'])->default('draft');
+            $table->text('extra_photo')->nullable();
             $table->string('slug');
             $table->softDeletes();
             $table->timestamps();

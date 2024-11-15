@@ -13,12 +13,17 @@ class DataCenterController extends Controller
 {
     public function index()
     {
-        return view('dashboard.data-center.index');
+        $categorys = CategoryDataCenter::orderBy('name', 'desc')->get();
+        return view('dashboard.data-center.index', compact('categorys'));
     }
 
-    public function data_table()
+    public function data_table(Request $request)
     {
         $data_center = DataCenter::with('category')->orderBy('name', 'asc')->get();
+
+        if($request->category_data_center_id){
+            $data_center = $data_center->where('category_data_center_id', $request->category_data_center_id);
+        }
 
         return DataTables::of($data_center)
             ->addColumn('category', function ($row) {

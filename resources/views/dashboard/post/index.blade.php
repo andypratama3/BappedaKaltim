@@ -16,7 +16,7 @@
                 <div class="row mb-2">
                     <h2>Filter</h2>
                     <div class="col-md-4 mb-2">
-                        <label for="category">Kategori Postingan</label>
+                        <label class="mb-2" for="category">Kategori Postingan</label>
                         <select name="category" id="category" class="form-control">
                             <option selected value="">Pilih Kategori Postingan</option>
                             @foreach ($categorys as $category)
@@ -25,7 +25,7 @@
                         </select>
                     </div>
                     <div class="col-md-4 mb-2">
-                        <label for="category">Status Postingan</label>
+                        <label class="mb-2" for="category">Status Postingan</label>
                         <select name="status" id="status" class="form-control">
                             <option selected value="">Pilih Status Postingan</option>
                             <option value="published">Dipublikasikan</option>

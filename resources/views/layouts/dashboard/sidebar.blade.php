@@ -39,22 +39,6 @@
     </ul>
 </li>
 
-{{-- Settings --}}
-<li class="sidebar-item ">
-    <a class="sidebar-link {{ request()->routeIs('dashboard.settings.*') ? 'collapsed' : '' }}" href="#settingsDropDown" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="settingsDropDown">
-        <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Pengaturan</span>
-        <i class="align-middle float-end" data-feather="chevron-right"></i>
-    </a>
-    <ul class="collapse list-unstyled mx-4 {{ request()->routeIs('dashboard.settings.*') ? 'show' : '' }}" id="settingsDropDown">
-    
-        <li class="sidebar-item {{ request()->routeIs('dashboard.settings.roles.*') ? 'active' : '' }}">
-            <a class="sidebar-link" href="{{ route('dashboard.settings.roles.index') }}">
-                <i class="align-middle" data-feather="list"></i><span class="align-middle">Role</span>
-            </a>
-        </li>
-    </ul>
-</li>
-
 <li class="sidebar-item ">
     <a class="sidebar-link {{ request()->routeIs('dashboard.post.*') ? 'collapsed' : '' }}" href="#post" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="post">
         <i class="align-middle" data-feather="book"></i> <span class="align-middle">Postingan</span>
@@ -86,13 +70,13 @@
     </a>
 </li>
 
-<li class="sidebar-item">
+{{-- <li class="sidebar-item">
     <a class="sidebar-link" href="pages-blank.html">
         <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
     </a>
-</li>
+</li> --}}
 
-<li class="sidebar-header">
+{{-- <li class="sidebar-header">
     Tools & Components
 </li>
 
@@ -126,16 +110,29 @@
     <a class="sidebar-link" href="icons-feather.html">
         <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
     </a>
-</li>
+</li> --}}
 
 <li class="sidebar-header">
-    Plugins & Addons
+    Settings
 </li>
 
-<li class="sidebar-item">
-    <a class="sidebar-link" href="charts-chartjs.html">
-        <i class="align-middle" data-feather="bar-chart-2"></i> <span
-            class="align-middle">Charts</span>
+{{-- Settings --}}
+<li class="sidebar-item ">
+    <a class="sidebar-link {{ request()->routeIs('dashboard.settings.*') ? 'collapsed' : '' }}" href="#settingsDropDown" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="settingsDropDown">
+        <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Pengaturan</span>
+        <i class="align-middle float-end" data-feather="chevron-right"></i>
     </a>
-</li>
+    <ul class="collapse list-unstyled mx-4 {{ request()->routeIs('dashboard.settings.*') ? 'show' : '' }}" id="settingsDropDown">
 
+        <li class="sidebar-item {{ request()->routeIs('dashboard.settings.roles.*') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('dashboard.settings.roles.index') }}">
+                <i class="align-middle" data-feather="list"></i><span class="align-middle">Role</span>
+            </a>
+        </li>
+        <li class="sidebar-item {{ request()->routeIs('dashboard.settings.users.*') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('dashboard.settings.users.index') }}">
+                <i class="align-middle" data-feather="users"></i><span class="align-middle">Pegawai</span>
+            </a>
+        </li>
+    </ul>
+</li>

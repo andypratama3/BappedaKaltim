@@ -13,8 +13,20 @@
     <div class="col-xl-12 col-xxl-7">
         <div class="card">
             <div class="card-body">
+                <div class="row mb-2">
+                    <h2>Filter</h2>
+                    <div class="col-md-4 mb-2">
+                        <label class="mb-2" for="category_data_center_id">Kategori Data Center</label>
+                        <select name="category_data_center_id" id="category_data_center_id" class="form-control">
+                            <option selected value="">Pilih Kategori Data Center</option>
+                            @foreach ($categorys as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="table-responsive">
-                    <table class="table table-stripped" id="agenda_table">
+                    <table class="table table-stripped" id="data_center">
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
@@ -36,7 +48,7 @@
 @push('js')
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#agenda_table').DataTable({
+            $('#data_center').DataTable({
                     ordering: true,
                     pagination: true,
                     deferRender: true,
@@ -47,6 +59,9 @@
                     pageLength: 50,
                     ajax: {
                         'url': '{{ route("dashboard.data.center.data_table") }}',
+                        'data': function (d) {
+                            d.category_data_center_id = $('#category_data_center_id').val();
+                        }
                     },
                     columns: [
                         { data: 'DT_RowIndex',name: 'DT_RowIndex',orderable: false,searchable: false},
@@ -57,7 +72,7 @@
                         { data: 'action', name: 'action', orderable: false,searchable: false},
                     ],
                 });
-                $('#agenda_table').on('click', '.btn-delete', function () {
+                $('#data_center').on('click', '.btn-delete', function () {
                     var slug = $(this).data('id');
                     var url = '{{ route("dashboard.data.center.destroy", ":slug") }}';
                     url = url.replace(':slug', slug);
@@ -86,7 +101,7 @@
                                 success: function (data) {
                                     if (data.status === 'success') {
                                         Swal.fire('Berhasil', data.message, 'success').then(() => {
-                                            reloadTable('#agenda_table');
+                                            reloadTable('#data_center');
                                         });
                                     } else {
                                         Swal.fire('Error', data.message, 'error');
@@ -96,6 +111,9 @@
                         }
                     });
                 });
+            $('#category_data_center_id').on('change', function () {
+                $('#data_center').DataTable().ajax.reload();
+            });
         });
     </script>
 @endpush

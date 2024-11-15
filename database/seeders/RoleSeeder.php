@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Role;
 use App\Models\Permission;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -54,6 +55,7 @@ class RoleSeeder extends Seeder
 
         foreach ($permissions as $permission) {
             Permission::create([
+                'id' => Str::uuid(),
                 'name' => $permission,
                 'guard_name' => 'web'
             ]);

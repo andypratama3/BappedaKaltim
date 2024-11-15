@@ -8,17 +8,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\Dashboard\AgendaRequest;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class AgendaController extends Controller
+
+class AgendaController extends Controller implements HasMiddleware
 {
 
     public static function middleware(): array
     {
         return [
-            // 'permission:agenda-create|agenda-edit|agenda-delete|agenda-list|agenda-show',
-            new Middleware('permission:agenda-create|agenda-edit|agenda-delete|agenda-list|agenda-show', only: ['index', 'create', 'store']),
-            new Middleware('permission:agenda-edit', only: ['edit', 'update']),
-            new Middleware('permission:agenda-delete', only: ['destroy']),
+            // new Middleware('role:superadmin'),
+            new Middleware('permission:agenda-create|agenda-edit|agenda-delete|agenda-list|agenda-show'),
+            new Middleware('permission:agenda-create', ['only' => ['create', 'store']]),
+            new Middleware('permission:agenda-edit', ['only'=> ['edit', 'update']]),
+            new Middleware('permission:agenda-delete', ['only' => ['destroy']]),
         ];
     }
 
