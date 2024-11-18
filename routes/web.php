@@ -5,7 +5,11 @@ use App\Http\Controllers\Dashboard\MapsController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\AgendaController;
+use App\Http\Controllers\Dashboard\BidangController;
+use App\Http\Controllers\Dashboard\PejabatController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\SubBidangController;
+use App\Http\Controllers\Dashboard\AppBappedaController;
 use App\Http\Controllers\Dashboard\DataCenterController;
 use App\Http\Controllers\Dashboard\PenghargaanController;
 use App\Http\Controllers\Dashboard\Post\PostNewsController;
@@ -27,12 +31,19 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     Route::resource('category-data-center', CategoryDataCenterController::class, ['names' => 'dashboard.category.data.center']);
     Route::resource('data-center', DataCenterController::class, ['names'=> 'dashboard.data.center'])->except('show');
     Route::resource('maps', MapsController::class, ['names' => 'dashboard.maps'])->except('show');
+    Route::resource('app', AppBappedaController::class, ['names' => 'dashboard.app-bappeda']);
+
+    
+
+    Route::resource('bidang', BidangController::class, ['names' => 'dashboard.bidang']);
+    Route::resource('sub-bidang', SubBidangController::class, ['names' => 'dashboard.sub.bidang']);
+    Route::resource('pejabat', PejabatController::class, ['names' => 'dashboard.pejabat']);
 
     Route::group(['prefix' => 'post'], function () {
         Route::resource('category-post', CategoryPostController::class, ['names' => 'dashboard.post.category']);
         Route::resource('post-news', PostNewsController::class, ['names' => 'dashboard.post.news']);
-
     });
+
 
     // Prefix for Datatable
     Route::group(['prefix' => 'datas'], function () {
@@ -45,6 +56,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('category-post', [CategoryPostController::class, 'data_table'])->name('dashboard.post.category.data_table');
         Route::get('maps-data', [MapsController::class, 'data_table'])->name('dashboard.maps.data_table');
         Route::get('roles-data', [RoleController::class, 'data_table'])->name('dashboard.settings.roles.data_table');
+        Route::get('app-datas', [AppBappedaController::class, 'data_table'])->name('dashboard.app-bappeda.data_table');
+        Route::get('bidang-datas', [BidangController::class, 'data_table'])->name('dashboard.bidang.data_table');
+        Route::get('sub-bidang-datas', [SubBidangController::class, 'data_table'])->name('dashboard.sub.bidang.data_table');
+        Route::get('pejabats-datas', [PejabatController::class, 'data_table'])->name('dashboard.pejabat.data_table');
     });
 
     Route::group(['prefix' => 'settings'], function () {

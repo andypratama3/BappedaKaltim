@@ -64,9 +64,31 @@
     </a>
 </li>
 
-<li class="sidebar-item {{ request()->routeIs('dashboard.maps.*') ? 'active' : '' }}">
+<li class="sidebar-item {{ request()->routeIs('dashboard.app.*') ? 'active' : '' }}">
     <a class="sidebar-link" href="{{ route('dashboard.maps.index') }}">
         <i class="align-middle bx bx-map" ></i> <span class="align-middle">Peta</span>
+    </a>
+</li>
+<li class="sidebar-item {{ request()->routeIs('dashboard.app-bappeda.*') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard.app-bappeda.index') }}">
+        <i class="align-middle bx bx-link-external" ></i> <span class="align-middle">Aplikasi Bappeda</span>
+    </a>
+</li>
+{{-- dropdown --}}
+<li class="sidebar-item {{ request()->routeIs('dashboard.bidang.*') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard.bidang.index') }}">
+        <i class="align-middle bx bx-group" ></i> <span class="align-middle">Bidang</span>
+    </a>
+</li>
+<li class="sidebar-item {{ request()->routeIs('dashboard.sub.bidang.*') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard.sub.bidang.index') }}">
+        <i class="align-middle bx bx-group" ></i> <span class="align-middle">Sub Bidang</span>
+    </a>
+</li>
+{{-- end dropdown --}}
+<li class="sidebar-item {{ request()->routeIs('dashboard.pejabat.*') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard.pejabat.index') }}">
+        <i class="align-middle bx bx-user" ></i> <span class="align-middle">Pejabat</span>
     </a>
 </li>
 

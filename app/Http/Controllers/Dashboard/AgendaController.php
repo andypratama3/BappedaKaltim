@@ -19,10 +19,9 @@ class AgendaController extends Controller implements HasMiddleware
     {
         return [
             // new Middleware('role:superadmin'),
-            new Middleware('permission:agenda-create|agenda-edit|agenda-delete|agenda-list|agenda-show'),
-            new Middleware('permission:agenda-create', ['only' => ['create', 'store']]),
-            new Middleware('permission:agenda-edit', ['only'=> ['edit', 'update']]),
-            new Middleware('permission:agenda-delete', ['only' => ['destroy']]),
+            new Middleware('permission:agenda-view|agenda-manage'),
+            new Middleware('permission:agenda-view', ['only' => ['index', 'data_table']]),
+            new Middleware('permission:agenda-manage', ['only'=> ['create', 'store', 'edit', 'update']]),
         ];
     }
 
@@ -38,14 +37,14 @@ class AgendaController extends Controller implements HasMiddleware
         return DataTables::of($agendas)
             ->addColumn('action', function ($row) {
                 $actions = '';
-                $actions .= '<a href="' . route('dashboard.agenda.show', $row->id) . '" class="btn btn-sm btn-warning me-2 "><i class="bx bxs-show"></i></a>';
 
-                // if (auth()->user()->can('slider-edit')) {
+                if (auth()->user()->can('agenda-view')) {
+                    $actions .= '<a href="' . route('dashboard.agenda.show', $row->id) . '" class="btn btn-sm btn-warning me-2 "><i class="bx bxs-show"></i></a>';
+                }
+                if (auth()->user()->can('agenda-manage')) {
                     $actions .= '<a href="' . route('dashboard.agenda.edit', $row->id) . '" class="btn btn-sm btn-primary me-2 "><i class="bx bxs-edit"></i></a>';
-                // }
-                // if (auth()->user()->can('slider-delete')) {
                     $actions .= '<button data-id="'.$row['id'].'" class="btn btn-sm btn-danger btn-delete me-2"><i class="bx bxs-trash"></i></button>';
-                // }
+                }
 
                 return $actions;
             })
