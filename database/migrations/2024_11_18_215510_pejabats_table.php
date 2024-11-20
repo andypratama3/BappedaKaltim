@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('kelas_jabatan');
             $table->string('jabatan');
             $table->string('jabatan_lainnya');
-            $table->string('jabatan_lainnya2');
+            $table->string('jabatan_lainnya2')->nullable();
             $table->foreignUuid('bidang_id')->references('id')->on('bidangs');
             $table->foreignUuid('sub_bidang_id')->nullable()->references('id')->on('sub_bidangs');
             $table->string('status_jabatan');

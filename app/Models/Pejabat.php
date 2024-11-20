@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Bidang;
+use App\Models\SubBidang;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
@@ -50,7 +52,7 @@ class Pejabat extends Model
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('title')
+            ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
 
