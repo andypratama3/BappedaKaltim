@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\PioController;
 use App\Http\Controllers\Dashboard\MapsController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -22,6 +23,10 @@ Route::get('/', function () {
 });
 
 
+// front-end
+// Route::resource('permohonan-informasi-online', PioController::class, ['names' => 'pio']);
+
+
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', DashboardController::class)->name('dashboard');
 
@@ -32,8 +37,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     Route::resource('data-center', DataCenterController::class, ['names'=> 'dashboard.data.center'])->except('show');
     Route::resource('maps', MapsController::class, ['names' => 'dashboard.maps'])->except('show');
     Route::resource('app', AppBappedaController::class, ['names' => 'dashboard.app-bappeda']);
-
-    
+    Route::resource('permohonan-informasi-online', PioController::class, ['names' => 'dashboard.pio']);
 
     Route::resource('bidang', BidangController::class, ['names' => 'dashboard.bidang']);
     Route::resource('sub-bidang', SubBidangController::class, ['names' => 'dashboard.sub.bidang']);
@@ -60,6 +64,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('bidang-datas', [BidangController::class, 'data_table'])->name('dashboard.bidang.data_table');
         Route::get('sub-bidang-datas', [SubBidangController::class, 'data_table'])->name('dashboard.sub.bidang.data_table');
         Route::get('pejabats-datas', [PejabatController::class, 'data_table'])->name('dashboard.pejabat.data_table');
+        Route::get('pios-datas', [PioController::class, 'data_table'])->name('dashboard.pio.data_table');
     });
 
     Route::group(['prefix' => 'settings'], function () {

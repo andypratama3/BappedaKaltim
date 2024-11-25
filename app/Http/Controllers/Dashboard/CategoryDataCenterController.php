@@ -6,9 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\CategoryDataCenter;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class CategoryDataCenterController extends Controller
+class CategoryDataCenterController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:category-data-center-view|category-data-center-manage'),
+            new Middleware('permission:category-data-center-view', ['only' => ['index', 'data_table']]),
+            new Middleware('permission:category-data-center-manage', ['only'=> ['create', 'store', 'edit', 'update', 'destroy']]),
+        ];
+    }
+
     public function index()
     {
         return view('dashboard.category-data-center.index');
@@ -22,12 +33,10 @@ class CategoryDataCenterController extends Controller
             ->addColumn('action', function ($row) {
             $actions = "";
 
-            // if (auth()->user()->can('slider-edit')) {
+            if (auth()->user()->can('category-data-center-manage')) {
                 $actions .= '<a href="' . route('dashboard.category.data.center.edit', $row->slug) . '" class="btn btn-sm btn-primary me-2 "><i class="bx bxs-edit"></i></a>';
-            // }
-            // if (auth()->user()->can('slider-delete')) {
                 $actions .= '<button data-id="'.$row['slug'].'" class="btn btn-sm btn-danger btn-delete me-2"><i class="bx bxs-trash"></i></button>';
-            // }
+            }
 
                 return $actions;
         })

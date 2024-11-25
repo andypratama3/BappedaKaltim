@@ -8,9 +8,19 @@ use Illuminate\Http\Request;
 use App\Models\CategoryDataCenter;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class DataCenterController extends Controller
+class DataCenterController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:data-center-view|data-center-manage'),
+            new Middleware('permission:data-center-view', ['only' => ['index', 'data_table']]),
+            new Middleware('permission:data-center-manage', ['only'=> ['create', 'store', 'edit', 'update', 'destroy']]),
+        ];
+    }
+
     public function index()
     {
         $categorys = CategoryDataCenter::orderBy('name', 'desc')->get();
@@ -35,10 +45,10 @@ class DataCenterController extends Controller
             ->addColumn('action', function ($row) {
                 $actions = '';
 
-                // $actions .= '<a href="' . route('dashboard.data.center.show', $row->slug) . '" class="btn btn-sm btn-warning me-2 "><i class="bx bxs-show"></i></a>';
-                $actions .= '<a href="' . route('dashboard.data.center.edit', $row->slug) . '" class="btn btn-sm btn-primary me-2 "><i class="bx bxs-edit"></i></a>';
-                $actions .= '<button data-id="'.$row['slug'].'" class="btn btn-sm btn-danger btn-delete me-2"><i class="bx bxs-trash"></i></button>';
-
+                if (auth()->user()->can('data-center-manage')) {
+                    $actions .= '<a href="' . route('dashboard.data.center.edit', $row->slug) . '" class="btn btn-sm btn-primary me-2 "><i class="bx bxs-edit"></i></a>';
+                    $actions .= '<button data-id="'.$row['slug'].'" class="btn btn-sm btn-danger btn-delete me-2"><i class="bx bxs-trash"></i></button>';
+                }
 
                 return $actions;
             })

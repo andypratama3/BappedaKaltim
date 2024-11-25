@@ -43,6 +43,7 @@ class Pejabat extends Model
         return $this->belongsTo(Bidang::class);
     }
 
+
     public function sub_bidang()
     {
         return $this->belongsTo(SubBidang::class);

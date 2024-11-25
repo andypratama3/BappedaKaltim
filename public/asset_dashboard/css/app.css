@@ -412,6 +412,14 @@ legend+* {
     clear: left
 }
 
+[data-feather="chevron-right"] {
+    transition: transform 0.3s ease;
+}
+[data-feather="chevron-right"].rotate {
+    transform: rotate(90deg);
+}
+
+
 ::-webkit-datetime-edit-day-field,
 ::-webkit-datetime-edit-fields-wrapper,
 ::-webkit-datetime-edit-hour-field,

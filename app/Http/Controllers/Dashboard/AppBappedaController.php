@@ -10,6 +10,15 @@ use Yajra\DataTables\Facades\DataTables;
 
 class AppBappedaController extends Controller
 {
+    public static function middleware(): array
+    {
+        return [
+            // new Middleware('role:superadmin'),
+            new Middleware('permission:app-bappeda-view|app-bappeda-manage'),
+            new Middleware('permission:app-bappeda-view', ['only' => ['index', 'data_table']]),
+            new Middleware('permission:app-bappeda-manage', ['only'=> ['create', 'store', 'edit', 'update', 'destroy']]),
+        ];
+    }
     public function index()
     {
         return view('dashboard.app-bappeda.index');
@@ -29,9 +38,10 @@ class AppBappedaController extends Controller
             ->addColumn('action', function ($row) {
                 $actions = '';
                 $actions .= '<a href="' . route('dashboard.app-bappeda.show', $row->slug) . '" class="btn btn-sm btn-secondary me-2 "><i class="bx bxs-show"></i></a>';
-                $actions .= '<a href="' . route('dashboard.app-bappeda.edit', $row->slug) . '" class="btn btn-sm btn-primary me-2 "><i class="bx bxs-edit"></i></a>';
-                $actions .= '<button data-id="'.$row['slug'].'" class="btn btn-sm btn-danger btn-delete me-2"><i class="bx bxs-trash"></i></button>';
-
+                if (auth()->user()->can('app-bappeda-manage')) {
+                    $actions .= '<a href="' . route('dashboard.app-bappeda.edit', $row->slug) . '" class="btn btn-sm btn-primary me-2 "><i class="bx bxs-edit"></i></a>';
+                    $actions .= '<button data-id="'.$row['slug'].'" class="btn btn-sm btn-danger btn-delete me-2"><i class="bx bxs-trash"></i></button>';
+                }
                 return $actions;
             })
             ->addIndexColumn()

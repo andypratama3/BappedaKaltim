@@ -7,12 +7,20 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class MapsController extends Controller
+class MapsController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:maps-view|maps-manage'),
+            new Middleware('permission:maps-view', ['only' => ['index', 'data_table']]),
+            new Middleware('permission:maps-manage', ['only'=> ['create', 'store', 'edit', 'update', 'destroy']]),
+        ];
+    }
+
     public function index()
     {
         return view('dashboard.maps.index');

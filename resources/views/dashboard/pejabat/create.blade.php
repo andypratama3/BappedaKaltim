@@ -109,7 +109,11 @@
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <label for="status_jabatan" class="form-label">Status Jabatan</label>
-                                        <input type="text" class="form-control @error('status_jabatan') is-invalid @enderror" id="status_jabatan" name="status_jabatan" value="{{ old('status_jabatan') }}">
+                                        <select name="status_jabatan" id="status_jabatan" class="form-control @error('status_jabatan') is-invalid @enderror">
+                                            <option selected disabled>Pilih Status Jabatan</option>
+                                            <option value="non-pajabat">Non Pejabat</option>
+                                            <option value="pajabat">Pejabat</option>
+                                        </select>
                                         @error('status_jabatan')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -117,10 +121,15 @@
                                 </div>
 
                                 <!-- Status Jabatan Penjabat Input -->
-                                <div class="row mb-3">
+                                {{-- select pejabat structural fungsional --}}
+                                {{-- select non-pejabat pelaksana pppk non-asn --}}
+                                <div class="row mb-3 d-none" id="div_status_jabatan_penjabat">
                                     <div class="col-md-12">
                                         <label for="status_jabatan_penjabat" class="form-label">Status Jabatan Penjabat</label>
-                                        <input type="text" class="form-control @error('status_jabatan_penjabat') is-invalid @enderror" id="status_jabatan_penjabat" name="status_jabatan_penjabat" value="{{ old('status_jabatan_penjabat') }}">
+                                        <select name="status_jabatan_penjabat" id="status_jabatan_penjabat" class="form-control @error('status_jabatan_penjabat') is-invalid @enderror">
+                                            <option selected disabled>Pilih Status Jabatan Penjabat</option>
+
+                                        </select>
                                         @error('status_jabatan_penjabat')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -210,6 +219,20 @@
 <script>
     $(document).ready(function () {
         $('.select2').select2();
+
+        $('#status_jabatan').on('change', function () {
+            var status_jabatan = $(this).val();
+            if(status_jabatan == 'pajabat') {
+                // append pejabat structural fungsional
+                $('#div_status_jabatan_penjabat').removeClass('d-none');
+                $('#status_jabatan_penjabat').html(
+                    '<option value="non-pajabat">Non Pejabat</option><option value="pajabat">Pejabat</option>');
+            } else {
+                // remove pejabat structural fungsional
+                $('#div_status_jabatan_penjabat').removeClass('d-none');
+                $('#status_jabatan_penjabat').html('<option value="pelaksana">Pelaksana</option><option value="pppk">PPPK</option><option value="non-asn">Non ASN</option>');
+            }
+        })
     });
 </script>
 @endpush

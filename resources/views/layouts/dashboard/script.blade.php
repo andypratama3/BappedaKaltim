@@ -1,4 +1,5 @@
 <script src="{{ asset('asset_dashboard/js/app.js') }}"></script>
+<script src="{{ asset('asset_dashboard/js/custom.js') }}"></script>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 {{-- Jquery --}}
@@ -29,7 +30,7 @@
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, Logout!',
             reverseButtons: true,
-            
+
         }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById('logout-form').submit();

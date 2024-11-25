@@ -51,6 +51,8 @@ class RoleSeeder extends Seeder
             'post-category-manage',
             'post-news-view',
             'post-news-manage',
+            'pio-view',
+            'pio-manage',
         ];
 
         //

@@ -74,21 +74,39 @@
         <i class="align-middle bx bx-link-external" ></i> <span class="align-middle">Aplikasi Bappeda</span>
     </a>
 </li>
-{{-- dropdown --}}
-<li class="sidebar-item {{ request()->routeIs('dashboard.bidang.*') ? 'active' : '' }}">
-    <a class="sidebar-link" href="{{ route('dashboard.bidang.index') }}">
-        <i class="align-middle bx bx-group" ></i> <span class="align-middle">Bidang</span>
+<li class="sidebar-item">
+    <a class="sidebar-link {{ request()->routeIs('dashboard.bidang.*') || request()->routeIs('dashboard.sub.bidang.*') ? '' : 'collapsed' }}" 
+       href="#bidang" 
+       data-bs-toggle="collapse" 
+       role="button" 
+       aria-expanded="{{ request()->routeIs('dashboard.bidang.*') || request()->routeIs('dashboard.sub.bidang.*') ? 'true' : 'false' }}" 
+       aria-controls="bidang">
+        <i class="align-middle bx bx-group"></i> <span class="align-middle">Bidang</span>
+        <i class="align-middle float-end" data-feather="chevron-right"></i>
+    </a>
+    <ul class="collapse list-unstyled mx-4 {{ request()->routeIs('dashboard.bidang.*') || request()->routeIs('dashboard.sub.bidang.*') ? 'show' : '' }}" id="bidang">
+        <li class="sidebar-item {{ request()->routeIs('dashboard.bidang.*') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('dashboard.bidang.index') }}">
+                <i class="align-middle bx bx-group"></i> <span class="align-middle">Bidang</span>
+            </a>
+        </li>
+        <li class="sidebar-item {{ request()->routeIs('dashboard.sub.bidang.*') ? 'active' : '' }}">
+            <a class="sidebar-link" href="{{ route('dashboard.sub.bidang.index') }}">
+                <i class="align-middle bx bx-group"></i> <span class="align-middle">Sub Bidang</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+<li class="sidebar-item">
+    <a class="sidebar-link {{ request()->routeIs('dashboard.pejabat.*') ? 'active' : '' }}" href="{{ route('dashboard.pejabat.index') }}">
+        <i class="align-middle bx bx-user"></i> <span class="align-middle">Pejabat</span>
     </a>
 </li>
-<li class="sidebar-item {{ request()->routeIs('dashboard.sub.bidang.*') ? 'active' : '' }}">
-    <a class="sidebar-link" href="{{ route('dashboard.sub.bidang.index') }}">
-        <i class="align-middle bx bx-group" ></i> <span class="align-middle">Sub Bidang</span>
-    </a>
-</li>
-{{-- end dropdown --}}
-<li class="sidebar-item {{ request()->routeIs('dashboard.pejabat.*') ? 'active' : '' }}">
-    <a class="sidebar-link" href="{{ route('dashboard.pejabat.index') }}">
-        <i class="align-middle bx bx-user" ></i> <span class="align-middle">Pejabat</span>
+
+<li class="sidebar-item {{ request()->routeIs('dashboard.pio.*') ? 'active' : '' }}">
+    <a class="sidebar-link" href="{{ route('dashboard.pio.index') }}">
+        <i class="align-middle bx bx-envelope" ></i> <span class="align-middle">Pio</span>
     </a>
 </li>
 

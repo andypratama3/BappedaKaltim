@@ -21,7 +21,7 @@ class AgendaController extends Controller implements HasMiddleware
             // new Middleware('role:superadmin'),
             new Middleware('permission:agenda-view|agenda-manage'),
             new Middleware('permission:agenda-view', ['only' => ['index', 'data_table']]),
-            new Middleware('permission:agenda-manage', ['only'=> ['create', 'store', 'edit', 'update']]),
+            new Middleware('permission:agenda-manage', ['only'=> ['create', 'store', 'edit', 'update', 'destroy']]),
         ];
     }
 
