@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\AgendaController;
 use App\Http\Controllers\Dashboard\BidangController;
+use App\Http\Controllers\FrontEnd\LandingController;
 use App\Http\Controllers\Dashboard\PejabatController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SubBidangController;
@@ -18,9 +19,12 @@ use App\Http\Controllers\Dashboard\WelcomeSliderController;
 use App\Http\Controllers\Dashboard\Post\CategoryPostController;
 use App\Http\Controllers\Dashboard\CategoryDataCenterController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('landing.index');
+// });
+
+// Route::group()
+Route::get('/', [LandingController::class, 'index'])->name('landing.index');
 
 
 // front-end
