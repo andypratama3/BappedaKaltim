@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\CategoryDataCenter;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
 class DataCenterController extends Controller implements HasMiddleware

@@ -40,8 +40,6 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Judul</th>
-                                {{-- <th scope="col">Tag</th>
-                                <th scope="col">Keyword</th> --}}
                                 <th scope="col">Kategori</th>
                                 <th scope="col">Pembuat</th>
                                 <th scope="col">Tanggal</th>
@@ -72,16 +70,14 @@
                     ajax: {
                         'url': '{{ route("dashboard.post.news.data_table") }}',
                         'data': function (d) {
-                            d.category = $('#category').val();
+                            d.category_id = $('#category').val();
                             d.status = $('#status').val();
                         },
                     },
                     columns: [
                         { data: 'DT_RowIndex',name: 'DT_RowIndex',orderable: false,searchable: false},
                         { data: 'title', name: 'title'},
-                        { data: 'tags', name: 'tags'},
-                        // { data: 'keywords', name: 'keywords'},
-                        // { data: 'category', name: 'category'},
+                        { data: 'category', name: 'category'},
                         { data: 'user', name: 'user'},
                         { data: 'date', name: 'date'},
                         { data: 'status', name: 'status',

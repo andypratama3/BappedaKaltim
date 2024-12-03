@@ -9,8 +9,8 @@
             </a>
             <div class="collapse navbar-collapse float-end px-0 mx-0" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item align-items-center mx-1">
-                        <a class="nav-link custom-nav-link text-center px-2 py-2 text-reset text-capitalize" aria-current="page" href="index.html">beranda</a>
+                    <li class="nav-item align-items-center mx-1 {{ Route::is('landing.index') ? 'active' : '' }}">
+                        <a class="nav-link custom-nav-link text-center px-2 py-2 text-reset text-capitalize" aria-current="page" href="{{ route('landing.index') }}">beranda</a>
                     </li>
                     <li class="nav-item align-items-center mx-1" id="profil-dropdown-toggle">
                         <a class="nav-link custom-nav-link text-center d-flex align-items-center justify-content-center gap-1 px-2 py-2 text-reset text-capitalize" href="#profil-dropdown"  data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
