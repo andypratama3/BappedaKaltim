@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('file');
+            $table->string('cover')->nullable();
             $table->foreignUuid('category_data_center_id')->references('id')->on('category_data_centers')->onDelete('cascade');
             $table->integer('order')->nullable();
             $table->string('slug');

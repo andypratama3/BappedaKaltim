@@ -3,7 +3,9 @@
 <script src="{{ asset('assets/js/jquery.min.js')}}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('assets/libs/OwlCarousel-2/dist/owl.carousel.min.js')}}"></script>
-<script src="https://code.responsivevoice.org/responsivevoice.js?key=tPYP8BZ0"></script>
-<script src="https://cdn.userway.org/widget.js')}}" data-account="mjiPcHFp7V"></script>
+{{-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=tPYP8BZ0"></script>
+<script src="https://cdn.userway.org/widget.js')}}" data-account="mjiPcHFp7V"></script> --}}
 <script src="{{ asset('assets/js/custom.js')}}"></script>
 <script src="{{ asset('assets/js/main-header-primary.js')}}"></script>
+
+@stack('front_js')

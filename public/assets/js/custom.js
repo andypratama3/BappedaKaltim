@@ -370,7 +370,7 @@ $(document).ready(function () {
                         break;
                 }
 
-                console.log("Swiper instance:", swiperInstance);
+                // console.log("Swiper instance:", swiperInstance);
 
                 if (swiperInstance) {
                     const isAtBeginning = swiperInstance.isBeginning;
@@ -384,7 +384,7 @@ $(document).ready(function () {
                     }
 
                     e.preventDefault();
-                    console.log("Scroll prevented.");
+                    // console.log("Scroll prevented.");
                 }
             }
         },
@@ -421,4 +421,5 @@ $(document).ready(function () {
     window.onload = function () {
         document.getElementById("autodate").innerHTML = Date();
     };
+
 });

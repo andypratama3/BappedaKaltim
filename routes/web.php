@@ -1,30 +1,45 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+
+// front-end
+use App\Http\Controllers\FrontEnd\LandingController;
+use App\Http\Controllers\FrontEnd\DataCenterController;
+
 use App\Http\Controllers\Dashboard\PioController;
 use App\Http\Controllers\Dashboard\MapsController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\AgendaController;
 use App\Http\Controllers\Dashboard\BidangController;
-use App\Http\Controllers\FrontEnd\LandingController;
 use App\Http\Controllers\Dashboard\PejabatController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SubBidangController;
 use App\Http\Controllers\Dashboard\AppBappedaController;
-use App\Http\Controllers\Dashboard\DataCenterController;
 use App\Http\Controllers\Dashboard\PenghargaanController;
 use App\Http\Controllers\Dashboard\Post\PostNewsController;
 use App\Http\Controllers\Dashboard\WelcomeSliderController;
 use App\Http\Controllers\Dashboard\Post\CategoryPostController;
 use App\Http\Controllers\Dashboard\CategoryDataCenterController;
 
+// Dashboard
+use App\Http\Controllers\Dashboard\DataCenterController as DashboardDataCenterController;
+
 // Route::get('/', function () {
 //     return view('landing.index');
 // });
 
-// Route::group()
-Route::get('/', [LandingController::class, 'index'])->name('landing.index');
+
+
+Route::group(['prefix' => '/'], function () {
+    Route::get('/', [LandingController::class, 'index'])->name('landing.index');
+
+    Route::get('data-center', [DataCenterController::class, 'index'])->name('data-center.index');
+    // Route::get('data-center', [DataCenterController::class, 'index'])->name('data-center.index');
+    Route::get('data-center/category/{slug}', [DataCenterController::class, 'show'])->name('data-center.category.show');
+    Route::get('data-center/category/download/{slug}', [DataCenterController::class, 'download'])->name('data-center.category.download');
+});
 
 
 // front-end
@@ -38,7 +53,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     Route::resource('slider', WelcomeSliderController::class, ['names'=> 'dashboard.sliders']);
     Route::resource('penghargaan', PenghargaanController::class, ['names' => 'dashboard.penghargaan']);
     Route::resource('category-data-center', CategoryDataCenterController::class, ['names' => 'dashboard.category.data.center']);
-    Route::resource('data-center', DataCenterController::class, ['names'=> 'dashboard.data.center'])->except('show');
+    Route::resource('data-center', DashboardDataCenterController::class, ['names'=> 'dashboard.data.center'])->except('show');
     Route::resource('maps', MapsController::class, ['names' => 'dashboard.maps'])->except('show');
     Route::resource('app', AppBappedaController::class, ['names' => 'dashboard.app-bappeda']);
     Route::resource('permohonan-informasi-online', PioController::class, ['names' => 'dashboard.pio']);
@@ -59,7 +74,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('agendas', [AgendaController::class, 'data_table'])->name('dashboard.agenda.data_table');
         Route::get('penghargaan', [PenghargaanController::class, 'data_table'])->name('dashboard.penghargaan.data_table');
         Route::get('category-data-center', [CategoryDataCenterController::class, 'data_table'])->name('dashboard.category.data.center.data_table');
-        Route::get('data-center', [DataCenterController::class, 'data_table'])->name('dashboard.data.center.data_table');
+        Route::get('data-center', [DashboardDataCenterController::class, 'data_table'])->name('dashboard.data.center.data_table');
         Route::get('posts', [PostNewsController::class, 'data_table'])->name('dashboard.post.news.data_table');
         Route::get('category-post', [CategoryPostController::class, 'data_table'])->name('dashboard.post.category.data_table');
         Route::get('maps-data', [MapsController::class, 'data_table'])->name('dashboard.maps.data_table');

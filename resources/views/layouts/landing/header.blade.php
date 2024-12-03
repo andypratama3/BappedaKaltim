@@ -36,9 +36,9 @@
                             <i class="bi bi-chevron-down icon-chevron-down"></i>
                         </a>
                     </li>
-                    <li class="nav-item align-items-center mx-1" id="data-center-dropdown-toggle">
-                        <a class="nav-link custom-nav-link text-center px-2 py-2 text-reset text-capitalize" href="data-center.html">
-                            data center
+                    <li class="nav-item align-items-center mx-1 {{ Route::is('data-center.index') ? 'active' : '' }}" id="data-center-dropdown-toggle">
+                        <a class="nav-link custom-nav-link text-center px-2 py-2 text-reset text-capitalize" href="{{ route('data-center.index') }}">
+                            Data center
                         </a>
                     </li>
                     <li class="nav-item align-items-center mx-1">

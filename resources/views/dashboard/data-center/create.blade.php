@@ -43,6 +43,19 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-12">
+                                        <label for="file_cover" class="form-label">Cover</label>
+                                        <input type="file" class="form-control @error('file_cover') is-invalid @enderror" id="file_cover" accept="image/*" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])" name="file_cover" value="{{ old('file_cover') }}" >
+                                        @error('file_cover')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12 mt-2 text-center">
+                                        <h6 class="text-center">Preview Gambar</h6>
+                                        <img src="" id="output" class="img-preview img-fluid mb-3" style="border-radius: 10px;">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
                                         <label for="order" class="form-label">Posisi</label>
                                         <input type="text" class="form-control @error('order') is-invalid @enderror" id="order" name="order" value="{{ old('order') }}">
                                         @error('order')

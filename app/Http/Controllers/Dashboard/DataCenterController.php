@@ -73,6 +73,7 @@ class DataCenterController extends Controller implements HasMiddleware
         ]);
 
         $file_name = null;
+        $file_name_cover = null;
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -82,10 +83,20 @@ class DataCenterController extends Controller implements HasMiddleware
             $file->move($upload_path, $file_name);
         }
 
+        if ($request->hasFile('file_cover')) {
+            $file = $request->file('file_cover');
+            $upload_path = public_path('storage/file/data-center/cover/');
+            $file_name_cover = 'Cover_DataCenter_' . Str::slug(Str::random(6)) . '_' . date('YmdHis') . '.' . $file->getClientOriginalExtension();
+
+            $file->move($upload_path, $file_name_cover);
+        }
+
+
         $data_center = DataCenter::create([
             'name' => $request->name,
             'order' => $request->order,
             'file' => $file_name,
+            'file_cover' => $file_name_cover,
             'category_data_center_id' => $request->category_data_center_id,
         ]);
 
@@ -110,6 +121,7 @@ class DataCenterController extends Controller implements HasMiddleware
 
         $data_center = DataCenter::where('slug', $slug)->first();
         $file_name = null;
+        $file_name_cover = null;
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -121,11 +133,24 @@ class DataCenterController extends Controller implements HasMiddleware
             $file_name = $data_center->file;
         }
 
+        if ($request->hasFile('file_cover')) {
+            $file = $request->file('file_cover');
+            $upload_path = public_path('storage/file/data-center/cover/');
+            $file_name_cover = 'Cover_DataCenter_' . Str::slug(Str::random(6)) . '_' . date('YmdHis') . '.' . $file->getClientOriginalExtension();
+
+            $file->move($upload_path, $file_name_cover);
+        }else{
+            $file_name_cover = $data_center->cover;
+        }
+
+
+
         $data_center->update([
             'name'=> $request->name,
             'order'=> $request->order,
             'category_data_center_id'=> $request->category_data_center_id,
             'file' => $file_name,
+            'cover' => $file_name_cover,
         ]);
 
         return redirect()->route('dashboard.data.center.index')->with('success', 'Data Center berhasil diupdate');

@@ -547,7 +547,6 @@
             <div class="col-12 ">
                 <div class="video-container mx-0">
                     <!-- sementara pakai img nanti pakai API -->
-                    <img src="{{ asset('assets/images/youtube.jpeg')}}" alt="youtube">
                 </div>
             </div>
         </div>
@@ -565,27 +564,8 @@
             <div class="col-lg-6 col-md-12 ">
                 <!-- Swiper Youtube -->
                 <div class="swiper swiper-youtube" id="swiper-youtube">
-                    <div class="swiper-wrapper swiper-youtube-wrapper">
-                        <div class="swiper-slide swiper-youtube-slide d-flex flex-column align-items-center justify-content-center">
-                            <img src="https://i.ytimg.com/vi/X6Llwq3QP0c/default.jpg" />
-                            <p class="title-content text-white text-justify">MUSRENBANG Rencana Kerja Pemerintah Daerah (RKPD) Provinsi Kalimantan Timur Tahun 2024 Part II</p>
-                        </div>
-                        <div class="swiper-slide swiper-youtube-slide d-flex flex-column align-items-center justify-content-center">
-                            <img src="https://i.ytimg.com/vi/LBffVvsc2zM/default.jpg" />
-                            <p class="title-content text-white text-justify">MUSRENBANG Rencana Kerja Pemerintah Daerah (RKPD) Provinsi Kalimantan Timur Tahun 2024 Part I</p>
-                        </div>
-                        <div class="swiper-slide swiper-youtube-slide d-flex flex-column align-items-center justify-content-center">
-                            <img src="https://i.ytimg.com/vi/czs7LFNLHS0/default.jpg" />
-                            <p class="title-content text-white text-justify">Strategi Perencanaan Transformasi Ekonomi berbasis Kolaborasi | kolabora.sie</p>
-                        </div>
-                        <div class="swiper-slide swiper-youtube-slide d-flex flex-column align-items-center justify-content-center">
-                            <img src="https://i.ytimg.com/vi/StDECnTidM4/default.jpg" />
-                            <p class="title-content text-white text-justify">Forum Konsultasi Publik Rancangan Awal RPJPD Provinsi Kalimantan Timur Tahun 2025-2045</p>
-                        </div>
-                        <div class="swiper-slide swiper-youtube-slide d-flex flex-column align-items-center justify-content-center">
-                            <img src="https://i.ytimg.com/vi/BA-HxXsYgeE/default.jpg" />
-                            <p class="title-content text-white text-justify">Keluarga Besar Bappeda Prov. Kaltim Mengucapkan Selamat Hari Raya Idul Fitri 1 Syawal 1444 H</p>
-                        </div>
+                    <div class="swiper-wrapper swiper-youtube-wrapper" id="swiper-youtube-wrapper">
+
                     </div>
                 </div>
                 <!-- Swiper Youtube -->
@@ -596,5 +576,129 @@
 <!---------------------------------->
 <!--------- Youtube End ------------>
 <!---------------------------------->
+{{-- <section class="youtube-section position-relative d-flex justify-content-center py-5">
+    <div class="container custom-container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-12">
+                <div class="video-container mx-0">
+                    <img src="{{ asset('assets/images/youtube.jpeg') }}" alt="youtube">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-12 d-flex flex-column align-items-start">
+                <div class="subscriber-container d-flex align-items-center">
+                    <img id="youtube-profile" src="" alt="youtube image" style="width: 60px; height: 60px; border-radius: 50%;">
+                    <div class="subscriber-content d-flex flex-column align-items-start mx-3">
+                        <p id="youtube-name" class="name text-white">Loading...</p>
+                        <p id="youtube-subscriber" class="subscribers text-white">...</p>
+                    </div>
+                </div>
+                <h4 class="text-connect-youtube text-white fw-bold mx-0 mt-3 p-0">
+                    Terhubung dengan Bappeda Provinsi Kalimantan Timur
+                </h4>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="swiper swiper-youtube" id="swiper-youtube">
+                    <div class="swiper-wrapper" id="youtube-carousel"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> --}}
+
+
+@push('front_js')
+<script type="text/javascript">
+    const youtubeToken = "{{ env('YOUTUBE_API_KEY') }}";
+    const youtubeChannelId = "UC5LF3CO4omiNMSrKOJUuXzQ";
+
+    function fetchYouTubeData() {
+        fetchChannelData();
+        fetchChannelVideos();
+    }
+
+    function fetchChannelData() {
+        $.ajax({
+            url: `https://youtube.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${youtubeChannelId}&key=${youtubeToken}`,
+            type: 'GET',
+            success: function(data) {
+                if (data.items && data.items.length > 0) {
+                    const channel = data.items[0];
+                    const channelThumbnail = channel.snippet.thumbnails.default.url;
+                    const channelName = channel.snippet.title;
+                    const subscriberCount = channel.statistics.subscriberCount;
+
+                    $('#youtube-profile').attr('src', channelThumbnail);
+                    $('#youtube-name').html(`<a href="https://www.youtube.com/channel/${youtubeChannelId}" target="_blank" style="color: #ffffff;">${channelName}</a>`);
+                    $('#youtube-subscriber').text(`${subscriberCount} Subscribers`);
+                }
+            },
+            error: function(xhr) {
+                console.error("Failed to fetch channel data:", xhr.responseJSON.error.message);
+            }
+        });
+    }
+
+    function fetchChannelVideos() {
+        $.ajax({
+            url: `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${youtubeChannelId}&maxResults=5&order=date&key=${youtubeToken}`,
+            type: 'GET',
+            success: function(data) {
+                if (data.items) {
+                    appendVideosToCarousel(data.items);
+                    initializeSwiper();
+                }
+            },
+            error: function(xhr) {
+                console.error("Failed to fetch videos:", xhr.responseJSON.error.message);
+            }
+        });
+    }
+
+    function appendVideosToCarousel(videos) {
+        const carousel = document.getElementById('swiper-youtube-wrapper');
+
+        videos.forEach((video) => {
+            const slide = document.createElement("div");
+            slide.className = "swiper-slide swiper-youtube-slide d-flex flex-column align-items-center justify-content-center";
+            slide.innerHTML = `
+                <a href="https://www.youtube.com/watch?v=${video.id.videoId}" target="_blank">
+                    <img src="${video.snippet.thumbnails.default.url}" alt="${video.snippet.title}" class="video-thumbnail">
+                    <p class="title-content text-white text-justify">${video.snippet.title}</p>
+                </a>
+            `;
+            carousel.appendChild(slide);
+        });
+    }
+    const swiper = new Swiper('.swiper-youtube', {
+        on: {
+            slideChange: function () {
+                const currentSlide = swiper.slides[swiper.activeIndex];
+                const videoId = $(currentSlide).find('a').attr('href').split('v=')[1];
+                updateVideoContainer(videoId);
+            }
+        }
+    });
+
+    function updateVideoContainer(videoId) {
+        const videoContainer = $('.video-container');
+        videoContainer.html(`
+            <iframe
+                width="100%"
+                height="500"
+                src="https://www.youtube.com/embed/${videoId}"
+                frameborder="0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        `);
+    }
+
+
+    $(document).ready(fetchYouTubeData);
+</script>
+@endpush
+
 
 @endsection

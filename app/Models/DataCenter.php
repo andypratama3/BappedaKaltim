@@ -17,6 +17,7 @@ class DataCenter extends Model
     protected $fillable = [
         'name',
         'file',
+        'cover',
         'category_data_center_id',
         'order',
         'slug',
