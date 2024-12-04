@@ -15,9 +15,9 @@ class PejabatController extends Controller
     public static function middleware(): array
     {
         return [
-            new Middleware('permission:pejabat-view|pejabat-manage'),
-            new Middleware('permission:pejabat-view', ['only' => ['index', 'data_table']]),
-            new Middleware('permission:pejabat-manage', ['only'=> ['create', 'store', 'edit', 'update']]),
+            new Middleware('permission:pegawai-view|pegawai-manage'),
+            new Middleware('permission:pegawai-view', ['only' => ['index', 'data_table']]),
+            new Middleware('permission:pegawai-manage', ['only'=> ['create', 'store', 'edit', 'update']]),
         ];
     }
 
@@ -128,19 +128,22 @@ class PejabatController extends Controller
             'foto' => $file_name,
         ]);
 
-        return redirect()->route('dashboard.pejabat.index')->with('success', 'Pejabat berhasil ditambahkan');
+        return redirect()->route('dashboard.pejabat.index')->with('success', 'Pegawai berhasil ditambahkan');
     }
 
-    public function edit(Pejabat $pejabat)
+    public function edit($slug)
     {
+        $pejabat = Pejabat::where('slug', $slug)->first();
         $bidangs = Bidang::all();
         $sub_bidangs = SubBidang::all();
 
         return view('dashboard.pejabat.edit', compact('pejabat','bidangs', 'sub_bidangs'));
     }
 
-    public function update(Request $request, Pejabat $pejabat)
+    public function update(Request $request,$slug)
     {
+        $pejabat = Pejabat::where('slug', $slug)->first();
+
         $request->validate([
             'name' => 'required|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -159,6 +162,8 @@ class PejabatController extends Controller
             'status_kehadiran' => 'required|string|max:50',
             'status_aktif' => 'required|boolean',
         ]);
+
+
 
         $file_name = $pejabat->foto;
 
@@ -189,17 +194,19 @@ class PejabatController extends Controller
             'foto' => $file_name,
         ]);
 
-        return redirect()->route('dashboard.pejabat.index')->with('success', 'Pejabat berhasil diperbarui');
+        return redirect()->route('dashboard.pejabat.index')->with('success', 'Pegawai berhasil diperbarui');
     }
 
-    public function destroy(Pejabat $pejabat)
+    public function destroy($slug)
     {
+        $pejabat = Pejabat::where('slug', $slug)->first();
+
         $action = $pejabat->delete();
 
         if ($action) {
-            return response()->json(['status' => 'success', 'message' => 'Berhasil Menghapus Pejabat']);
+            return response()->json(['status' => 'success', 'message' => 'Berhasil Menghapus Pegawai']);
         } else {
-            return response()->json(['status' => 'error', 'message' => 'Gagal Menghapus Pejabat']);
+            return response()->json(['status' => 'error', 'message' => 'Gagal Menghapus Pegawai']);
         }
     }
 }

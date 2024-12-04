@@ -42,11 +42,13 @@ class LandingController extends Controller
 
 
         // app bappeda
+
         $apps = AppBappeda::orderBy('orders', 'desc')->get();
         // rewards
         $awards = Penghargaan::orderBy('created_at', 'asc')->limit(5)->get();
         // maps / peta
         $maps = Maps::orderBy('name', 'asc')->limit(5)->get();
+
         return view('landing.index', compact('sliders','news','informations','apps','awards','maps'));
     }
 }

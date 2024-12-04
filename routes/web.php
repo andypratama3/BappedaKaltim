@@ -60,7 +60,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
 
     Route::resource('bidang', BidangController::class, ['names' => 'dashboard.bidang']);
     Route::resource('sub-bidang', SubBidangController::class, ['names' => 'dashboard.sub.bidang']);
-    Route::resource('pejabat', PejabatController::class, ['names' => 'dashboard.pejabat']);
+    Route::resource('pegawai', PejabatController::class, ['names' => 'dashboard.pejabat']);
 
     Route::group(['prefix' => 'post'], function () {
         Route::resource('category-post', CategoryPostController::class, ['names' => 'dashboard.post.category']);

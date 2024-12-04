@@ -1,8 +1,8 @@
 @extends('layouts.dashboard')
-@section('title','Data Pejabat')
+@section('title','Data Pegawai')
 @section('content')
 <h1 class="h3 mb-3">
-    <strong>Data Pejabat</strong>
+    <strong>Data Pegawai</strong>
         <a href="{{ route('dashboard.pejabat.create') }}" class="btn btn-primary float-end btn-sm btn-rounded">
             Tambah
             <i class="align-middle" data-feather="plus"></i>
@@ -86,13 +86,13 @@
                             data: 'status_aktif',
                             name: 'status_aktif',
                             render: function(data) {
-                                if($data == 1){
+                                if(data == 1){
                                     return '<span class="badge bg-success">Aktif</span>';
                                 }else{
                                     return '<span class="badge bg-danger">Tidak Aktif</span>';
                                 }
                             }
-                        }
+                        },
                         { data: 'action', name: 'action', orderable: false,searchable: false},
                     ],
                 });

@@ -75,11 +75,11 @@
     </a>
 </li>
 <li class="sidebar-item">
-    <a class="sidebar-link {{ request()->routeIs('dashboard.bidang.*') || request()->routeIs('dashboard.sub.bidang.*') ? '' : 'collapsed' }}" 
-       href="#bidang" 
-       data-bs-toggle="collapse" 
-       role="button" 
-       aria-expanded="{{ request()->routeIs('dashboard.bidang.*') || request()->routeIs('dashboard.sub.bidang.*') ? 'true' : 'false' }}" 
+    <a class="sidebar-link {{ request()->routeIs('dashboard.bidang.*') || request()->routeIs('dashboard.sub.bidang.*') ? '' : 'collapsed' }}"
+       href="#bidang"
+       data-bs-toggle="collapse"
+       role="button"
+       aria-expanded="{{ request()->routeIs('dashboard.bidang.*') || request()->routeIs('dashboard.sub.bidang.*') ? 'true' : 'false' }}"
        aria-controls="bidang">
         <i class="align-middle bx bx-group"></i> <span class="align-middle">Bidang</span>
         <i class="align-middle float-end" data-feather="chevron-right"></i>
@@ -100,7 +100,7 @@
 
 <li class="sidebar-item">
     <a class="sidebar-link {{ request()->routeIs('dashboard.pejabat.*') ? 'active' : '' }}" href="{{ route('dashboard.pejabat.index') }}">
-        <i class="align-middle bx bx-user"></i> <span class="align-middle">Pejabat</span>
+        <i class="align-middle bx bx-user"></i> <span class="align-middle">Pegawai</span>
     </a>
 </li>
 
@@ -171,7 +171,7 @@
         </li>
         <li class="sidebar-item {{ request()->routeIs('dashboard.settings.users.*') ? 'active' : '' }}">
             <a class="sidebar-link" href="{{ route('dashboard.settings.users.index') }}">
-                <i class="align-middle" data-feather="users"></i><span class="align-middle">Pegawai</span>
+                <i class="align-middle" data-feather="users"></i><span class="align-middle">Pengguna</span>
             </a>
         </li>
     </ul>

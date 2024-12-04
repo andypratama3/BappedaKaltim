@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
-@section('title', 'Tambah Pejabat')
+@section('title', 'Tambah Pegawai')
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
 <h1 class="h3 mb-3">
-    <strong>Tambah Pejabat</strong>
+    <strong>Tambah Pegawai</strong>
 </h1>
 
 <div class="row">

@@ -12,6 +12,7 @@
     <div class="col-md-12 d-flex">
         <div class="w-100">
             <div class="row">
+                @include('layouts.flashmessage')
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
@@ -159,6 +160,20 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <label for="status_aktif" class="form-label">Status Aktif</label>
+                                        <select class="form-control @error('status_aktif') is-invalid @enderror" id="status_aktif" name="status_aktif">
+                                            <option value="0" {{ old('status_aktif', $pejabat->status_aktif) == 0 ? 'selected' : '' }}>Tidak Aktif</option>
+                                            <option value="1" {{ old('status_aktif', $pejabat->status_aktif) == 1 ? 'selected' : '' }}>Aktif</option>
+                                        </select>
+                                        @error('status_aktif')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
 
                                 <div class="row mb-3">
                                     <div class="col-md-12">
