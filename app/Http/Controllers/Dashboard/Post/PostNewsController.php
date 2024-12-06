@@ -74,9 +74,6 @@ class PostNewsController extends Controller
             'status' => 'required|in:draft,published,trashed',
         ]);
 
-
-        // dd($request->all());
-
         $file_name = null;
 
         if ($request->hasFile('image')) {
@@ -87,8 +84,23 @@ class PostNewsController extends Controller
             $file->move($upload_path, $file_name);
         }
 
+        $saved_files = [];
+        if ($request->hasFile('extra_photo')) {
+            $files = $request->file('extra_photo');
+            $upload_path = public_path('storage/post/extra/');
 
-            
+            foreach ($files as $file) {
+                $file_name_extra = 'Post_Extra_' . Str::slug(Str::random(6)) . '_' . date('YmdHis') . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move($upload_path, $file_name_extra);
+                $saved_files[] = $file_name_extra;
+            }
+        }
+
+
+        if (!$saved_files) {
+            $saved_files = [];
+        }
+
         $post = PostNew::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -98,10 +110,12 @@ class PostNewsController extends Controller
             'tags' => $request->tags,
             'image' => $file_name,
             'status' => $request->status,
+            'extra_photo' => implode(',', $saved_files),
         ]);
 
         return redirect()->route('dashboard.post.news.index')->with('success', 'Postingan Berhasil Dibuat');
     }
+
 
     public function show($slug)
     {
@@ -130,6 +144,12 @@ class PostNewsController extends Controller
         ]);
 
         $post = PostNew::where('slug', $slug)->first();
+
+        if (!$post) {
+            abort(404, 'Berita tidak ditemukan');
+        }
+
+        // Handle image file upload
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $upload_path = public_path('storage/post/');
@@ -140,6 +160,26 @@ class PostNewsController extends Controller
             $file_name = $post->image;
         }
 
+        // Handle extra photo uploads
+        $saved_files = [];
+        if ($request->hasFile('extra_photo')) {
+            $files = $request->file('extra_photo');
+            $upload_path = public_path('storage/post/extra/');
+
+            foreach ($files as $file) {
+                $file_name_extra = 'Post_Extra_' . Str::slug(Str::random(6)) . '_' . date('YmdHis') . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move($upload_path, $file_name_extra);
+                $saved_files[] = $file_name_extra;
+            }
+
+            $saved_files = implode(',', $saved_files);
+
+        } else {
+
+            $saved_files = $post->extra_photo;
+        }
+
+        // Update the record
         $post->update([
             'title' => $request->title,
             'description' => $request->description,
@@ -149,10 +189,12 @@ class PostNewsController extends Controller
             'tags' => $request->tags,
             'image' => $file_name,
             'status' => $request->status,
+            'extra_photo' => $saved_files,
         ]);
 
         return redirect()->route('dashboard.post.news.index')->with('success', 'Postingan Berhasil Diperbarui');
     }
+
 
     public function destroy($slug)
     {

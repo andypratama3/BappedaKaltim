@@ -95,11 +95,26 @@
                                         <img src="{{ $post->image ? asset('storage/post/' . $post->image) : '' }}" id="output" class="img-preview img-fluid mb-3" style="border-radius: 10px;">
                                     </div>
                                 </div>
-                                <div class="row mb-5">
+                                <div class="row mb-7">
                                     <div class="col-md-12 mb-4">
                                         <label for="description" class="form-label">Deskripsi</label>
                                         <div id="editor">{!! $post->description !!}</div>
                                         <textarea name="description" id="content-editor" style="display: none;">{!! $post->description !!}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-4">
+                                    <label for="extra_photo" class="form-label">Foto Tambahan</label>
+                                    <input type="file" class="form-control @error('extra_photo') is-invalid @enderror" id="extra_photo" name="extra_photo[]" accept="image/*" multiple>
+                                    <div class="row mt-2">
+                                        @php
+                                            $extra_photos = explode(',', $post->extra_photo);
+                                        @endphp
+                                        @foreach ($extra_photos as $key => $extra_photo)
+                                            <div class="col-md-4">
+                                                <img src="{{ asset('storage/post/extra/'. $extra_photo) }}" class="img-preview img-fluid mb-3" style="border-radius: 10px;">
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
 

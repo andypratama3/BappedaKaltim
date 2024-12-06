@@ -24,6 +24,7 @@ class PostNew extends Model
         'tags',
         'image',
         'status',
+        'extra_photo',
         'slug',
     ];
 

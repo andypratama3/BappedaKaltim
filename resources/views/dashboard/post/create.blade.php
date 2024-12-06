@@ -102,16 +102,17 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
+                                <div class="row mb-3 mt-7">
                                     <div class="col-md-12">
                                         <label for="extra_photo" class="form-label">Foto Tambahan</label>
-
                                         <input type="file" class="form-control @error('extra_photo') is-invalid @enderror" id="extra_photo" name="extra_photo[]" accept="image/*" multiple>
                                         @error('extra_photo')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
+
+                               
                                 <div class="row mt-5">
                                     <div class="col-md-12 mt-5">
                                         <a href="{{ route('dashboard.post.news.index') }}" class="btn btn-danger">Kembali</a>

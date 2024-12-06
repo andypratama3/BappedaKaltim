@@ -63,11 +63,27 @@
                                         <img src="{{ asset('storage/post/'.$post->image) }}" class="img-preview img-fluid mb-3" style="border-radius: 10px;">
                                     </div>
                                 </div>
-                                <div class="row mb-5">
+                                <div class="row mb-7">
                                     <div class="col-md-12 mb-4">
                                         <label for="description" class="form-label">Deskripsi</label>
                                         <div id="editor">
                                             {!! $post->description !!}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5 mt-4">
+                                    <div class="col-md-12 mb-4">
+                                        <label for="extra_photo" class="form-label">Foto Tambahan</label>
+                                        <div class="row">
+                                            @php
+                                                $extra_photos = explode(',', $post->extra_photo);
+                                            @endphp
+                                            @foreach ($extra_photos as $key => $extra_photo)
+                                                <div class="col-md-4">
+                                                    <img src="{{ asset('storage/post/extra/'. $extra_photo) }}" class="img-preview img-fluid mb-3" style="border-radius: 10px;">
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>

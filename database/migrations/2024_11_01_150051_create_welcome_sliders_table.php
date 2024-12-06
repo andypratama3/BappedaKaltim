@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->date('expired_date')->nullable();
             $table->string('image');
-            $table->integer('active')->default(0);
+            $table->boolean('active')->default(0);
             $table->text('link')->nullable();
             $table->integer('orders')->nullable();
             $table->string('slug');

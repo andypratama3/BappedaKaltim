@@ -532,11 +532,11 @@
 <!---------------------------------->
 <!---------- Maps End -------------->
 <!---------------------------------->
-<!--
+
 <script src="https://static.elfsight.com/platform/platform.js" async></script>
 <div class="container custom-container">
     <div class="elfsight-app-217a6d6a-9059-4d8e-8ffa-d566a5d0bdbd" data-elfsight-app-lazy></div>
-</div> -->
+</div>
 
 <!---------------------------------->
 <!----------- Youtube -------------->

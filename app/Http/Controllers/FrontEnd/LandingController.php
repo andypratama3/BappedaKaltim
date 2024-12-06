@@ -19,10 +19,11 @@ class LandingController extends Controller
         $news_category = PostCategory::where('name', 'Berita')->first();
         $news_international = PostCategory::where('name', 'Berita Nasional')->first();
         $information_category = PostCategory::where('name', 'Informasi')->first();
-        $sliders = WelcomeSlider::where('active', 1)->orderBy('orders', 'asc')->get();
+        $sliders = WelcomeSlider::where('active', 1)->orderBy('orders', 'asc')->take(5)->get();
+        // dd($sliders);
         $news = PostNew::whereIn('category_id', [$news_category->id, $news_international->id])->where('status', 'published')->orderBy('created_at', 'desc')->limit(3)->get();
         $informations = PostNew::where('category_id', $information_category->id)->where('status', 'published')->orderBy('created_at', 'desc')->limit(5)->get();
-
+        // dd($informations);
         if ($news_category && $news_international && $information_category) {
             $news = PostNew::whereIn('category_id', [$news_category->id, $news_international->id])
                            ->where('status', 'published')
@@ -50,5 +51,30 @@ class LandingController extends Controller
         $maps = Maps::orderBy('name', 'asc')->limit(5)->get();
 
         return view('landing.index', compact('sliders','news','informations','apps','awards','maps'));
+    }
+
+    public function berita()
+    {
+        return view('landing.berita');
+    }
+
+    public function profil()
+    {
+        return view('landing.profile');
+    }
+
+    public function tupoksi()
+    {
+        return view('landing.tupoksi');
+    }
+
+    public function struktur()
+    {
+        return view('landing.struktur');
+    }
+
+    public function peta()
+    {
+        return view('landing.peta');
     }
 }

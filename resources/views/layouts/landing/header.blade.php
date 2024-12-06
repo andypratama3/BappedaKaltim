@@ -247,15 +247,15 @@
         <div class="container col-12">
             <h3 class="text-capitalize">profil</h3>
             <div class="row mt-1">
-                <a href="profil-bappeda.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('landing.profile') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Profil Bappeda</p>
                     <p class="fs-9 py-0 my-0">Sejarah Singkat Bappeda Kaltim: Dari 1974 hingga Pembaruan 2020</p>
                 </a>
-                <a href="profil-tupoksi-bappeda.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('landing.tupoksi') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Tupoksi Bappeda</p>
                     <p class="fs-9 py-0 my-0">Temukan peran dan tanggung jawab Badan Perencanaan Pembangunan Daerah Provinsi Kalimantan Timur sesuai dengan Peraturan Gubernur Nomor 43 Tahun 2023</p>
                 </a>
-                <a href="profil-struktur-organisasi.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('landing.struktur') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Struktur Organisasi</p>
                     <p class="fs-9 py-0 my-0">Lihat struktur organisasi Badan Perencanaan Pembangunan Daerah Provinsi Kalimantan Timur untuk memahami pembagian tugas dan fungsi setiap unit</p>
                 </a>
@@ -344,7 +344,7 @@
                     <p class="fw-bold py-0 my-2 fs-7">Artikel</p>
                     <p class="fs-9 py-0 my-0">Temukan informasi penting tentang inovasi pembangunan yang mendukung kemajuan daerah.</p>
                 </a>
-                <a href="postingan-berita.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('berita.index') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Berita Bappeda</p>
                     <p class="fs-9 py-0 my-0">Ulasan lengkap tentang program unggulan Bappeda yang berkontribusi pada kemajuan wilayah.</p>
                 </a>

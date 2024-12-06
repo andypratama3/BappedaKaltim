@@ -4,26 +4,27 @@ use Illuminate\Support\Facades\Route;
 
 
 // front-end
-use App\Http\Controllers\FrontEnd\LandingController;
-use App\Http\Controllers\FrontEnd\DataCenterController;
-
 use App\Http\Controllers\Dashboard\PioController;
 use App\Http\Controllers\Dashboard\MapsController;
+
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\FrontEnd\BeritaController;
 use App\Http\Controllers\Dashboard\AgendaController;
 use App\Http\Controllers\Dashboard\BidangController;
+use App\Http\Controllers\FrontEnd\LandingController;
 use App\Http\Controllers\Dashboard\PejabatController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SubBidangController;
+use App\Http\Controllers\FrontEnd\DataCenterController;
 use App\Http\Controllers\Dashboard\AppBappedaController;
 use App\Http\Controllers\Dashboard\PenghargaanController;
 use App\Http\Controllers\Dashboard\Post\PostNewsController;
 use App\Http\Controllers\Dashboard\WelcomeSliderController;
 use App\Http\Controllers\Dashboard\Post\CategoryPostController;
-use App\Http\Controllers\Dashboard\CategoryDataCenterController;
 
 // Dashboard
+use App\Http\Controllers\Dashboard\CategoryDataCenterController;
 use App\Http\Controllers\Dashboard\DataCenterController as DashboardDataCenterController;
 
 // Route::get('/', function () {
@@ -34,6 +35,14 @@ use App\Http\Controllers\Dashboard\DataCenterController as DashboardDataCenterCo
 
 Route::group(['prefix' => '/'], function () {
     Route::get('/', [LandingController::class, 'index'])->name('landing.index');
+    Route::get('/profile', [LandingController::class, 'profil'])->name('landing.profile');
+    Route::get('/tupoksi', [LandingController::class, 'tupoksi'])->name('landing.tupoksi');
+    Route::get('/struktur-organisasi', [LandingController::class, 'struktur'])->name('landing.struktur');
+
+    // berita
+    Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+    Route::get('/berita/{slug}/detail', [BeritaController::class, 'show'])->name('berita.show');
+
 
     Route::get('data-center', [DataCenterController::class, 'index'])->name('data-center.index');
     // Route::get('data-center', [DataCenterController::class, 'index'])->name('data-center.index');
