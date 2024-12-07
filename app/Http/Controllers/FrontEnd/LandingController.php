@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Models\Maps;
+use App\Models\Agenda;
 use App\Models\PostNew;
 use App\Models\AppBappeda;
 use App\Models\Penghargaan;
@@ -41,6 +42,8 @@ class LandingController extends Controller
             $informations = collect();
         }
 
+        $agendas = Agenda::orderBy('created_at', 'desc')->get();
+
 
         // app bappeda
 
@@ -50,7 +53,7 @@ class LandingController extends Controller
         // maps / peta
         $maps = Maps::orderBy('name', 'asc')->limit(5)->get();
 
-        return view('landing.index', compact('sliders','news','informations','apps','awards','maps'));
+        return view('landing.index', compact('sliders','news','informations','apps','awards','maps','agendas'));
     }
 
     public function berita()

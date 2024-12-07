@@ -6,26 +6,41 @@ use App\Models\PostNew;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FrontEnd\SideDataController;
 
 class BeritaController extends Controller
 {
+    protected $posts;
+
+    public function __construct(SideDataController $sideDataController)
+    {
+        $this->datas = $sideDataController;
+        $this->arsip = $sideDataController;
+    }
+
     public function index(Request $request)
     {
         $limit = 15;
         $berita_category_id = PostCategory::where('name', 'berita')->first()->id;
 
         // berita with views
+        $posts = $this->datas->datas();
+        // posts arsip
+        $arsip = $this->arsip->arsip();
 
         $beritas = PostNew::where('category_id', $berita_category_id)->where('status', 'published')->orderBy('created_at', 'desc')->paginate($limit);
 
         $categorys = PostCategory::orderBy('name')->get();
 
-        if($request->name)
-        {
-
+        if($request->has('search')) {
+            $beritas = PostNew::where('category_id', $berita_category_id)
+                ->where('title', 'like', '%'.$request->input('search').'%')
+                ->where('status', 'published')
+                ->orderBy('created_at', 'desc')
+                ->paginate($limit);
         }
 
-        return view('landing.berita.index', compact('beritas','categorys'));
+        return view('landing.berita.index', compact('beritas','categorys','posts','arsip'));
     }
 
     public function show($slug)

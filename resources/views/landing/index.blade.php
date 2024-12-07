@@ -1,6 +1,7 @@
 @extends('layouts.landing')
 @section('content')
 
+
 <section class="to-top-btn white-radius-hover position-fixed" id="to-top-btn">
     <i class="bi bi-arrow-up-circle text-white"></i>
 </section>
@@ -74,7 +75,7 @@
                                     <div class="title-content title-section d-flex align-items-center justify-content-between mb-3">
                                         <p class="text-title text-capitalize lh-sm my-0 py-0">berita terkini</p>
                                         <hr class="hr-title-black flex-grow-1 mx-3">
-                                        <a href="#" class="all-news-btn d-flex align-items-center justify-content-center text-capitalize text-decoration-none lh-sm gap-3 fw-500">
+                                        <a href="{{ route('berita.index') }}" class="all-news-btn d-flex align-items-center justify-content-center text-capitalize text-decoration-none lh-sm gap-3 fw-500">
                                             lihat semua berita
                                             <i class="bi bi-box-arrow-up-right"></i>
                                         </a>
@@ -141,59 +142,9 @@
                                 <p class="text-center fs-8 text-uppercase m-0 px-0 py-2 w-100 active">
                                     terbaru
                                 </p>
-                                <p class="text-center fs-8 text-uppercase m-0 px-0 py-2 w-100">
-                                    terpopuler
-                                </p>
                             </div>
-                            <div class="news-item-content">
-                                <!-- Swiper -->
-                                <div class="swiper swiper-news-item">
-                                    <div class="swiper-wrapper">
-                                        <div class="swiper-slide news-item-slide mb-3 px-2 py-2">
-                                            <p class="title  mx-0 py-0">
-                                                Seminar Awal Penyusunan Grand Desain Ketahanan Pangan Tahun 2025-2045 Provinsi Kaltim
-                                            </p>
-                                            <p class="date  my-0 py-0">Jumat, 08 November 2024</p>
-                                        </div>
-                                        <div class="swiper-slide news-item-slide mb-3 px-2 py-2">
-                                            <p class="title  mx-0 py-0">
-                                                Sinkronisasi Program Pengembangan Masyarakat dengan Rencana Pembangunan Daerah Kalimantan Timur
-                                            </p>
-                                            <p class="date  my-0 py-0">Kamis, 07 November 2024</p>
-                                        </div>
-                                        <div class="swiper-slide news-item-slide mb-3 px-2 py-2">
-                                            <p class="title  mx-0 py-0">
-                                                Rakor Dukungan Peta Kerawanan Narkoba (PEKA) melalui Informasi Geospasial
-                                            </p>
-                                            <p class="date  my-0 py-0">Rabu, 06 November 2024</p>
-                                        </div>
-                                        <div class="swiper-slide news-item-slide mb-3 px-2 py-2">
-                                            <p class="title  mx-0 py-0">
-                                                Bappeda Kaltim Sabet Juara I dan III dalam Ajang Lomba Lari 5000 Meter HUT KORPRI ke 53
-                                            </p>
-                                            <p class="date  my-0 py-0">Rabu, 06 November 2024</p>
-                                        </div>
-                                        <div class="swiper-slide news-item-slide mb-3 px-2 py-2">
-                                            <p class="title  mx-0 py-0">
-                                                Bhumandala Award 2024: Pemprov Kaltim Raih Penghargaan Bhumandala Rajata
-                                            </p>
-                                            <p class="date  my-0 py-0">Selasa, 05 November 2024</p>
-                                        </div>
-                                        <div class="swiper-slide news-item-slide mb-3 px-2 py-2">
-                                            <p class="title  mx-0 py-0">
-                                                Bhumandala Award 2024: Pemprov Kaltim Raih Penghargaan Bhumandala Rajata
-                                            </p>
-                                            <p class="date  my-0 py-0">Selasa, 05 November 2024</p>
-                                        </div>
-                                        <div class="swiper-slide news-item-slide mb-3 px-2 py-2">
-                                            <p class="title  mx-0 py-0">
-                                                Bhumandala Award 2024: Pemprov Kaltim Raih Penghargaan Bhumandala Rajata
-                                            </p>
-                                            <p class="date  my-0 py-0">Selasa, 05 November 2024</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Swiper News Item End -->
+                            <div class="row">
+                                
                             </div>
                         </div>
                     </div>
@@ -576,42 +527,13 @@
 <!---------------------------------->
 <!--------- Youtube End ------------>
 <!---------------------------------->
-{{-- <section class="youtube-section position-relative d-flex justify-content-center py-5">
-    <div class="container custom-container">
-        <div class="row d-flex align-items-center justify-content-center">
-            <div class="col-12">
-                <div class="video-container mx-0">
-                    <img src="{{ asset('assets/images/youtube.jpeg') }}" alt="youtube">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-12 d-flex flex-column align-items-start">
-                <div class="subscriber-container d-flex align-items-center">
-                    <img id="youtube-profile" src="" alt="youtube image" style="width: 60px; height: 60px; border-radius: 50%;">
-                    <div class="subscriber-content d-flex flex-column align-items-start mx-3">
-                        <p id="youtube-name" class="name text-white">Loading...</p>
-                        <p id="youtube-subscriber" class="subscribers text-white">...</p>
-                    </div>
-                </div>
-                <h4 class="text-connect-youtube text-white fw-bold mx-0 mt-3 p-0">
-                    Terhubung dengan Bappeda Provinsi Kalimantan Timur
-                </h4>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <div class="swiper swiper-youtube" id="swiper-youtube">
-                    <div class="swiper-wrapper" id="youtube-carousel"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> --}}
-
 
 @push('front_js')
 <script type="text/javascript">
     const youtubeToken = "{{ env('YOUTUBE_API_KEY') }}";
     const youtubeChannelId = "UC5LF3CO4omiNMSrKOJUuXzQ";
+
+
 
     function fetchYouTubeData() {
         fetchChannelData();
@@ -693,6 +615,20 @@
                 allowfullscreen>
             </iframe>
         `);
+    }
+
+    function initializeSwiper() {
+        const swiperYoutube = new Swiper("#swiper-youtube", {
+            spaceBetween: 10,
+            slidesPerView: 1,
+            slidesPerGroup: 2,
+            loop: true, .
+            mousewheel: {
+            forceToAxis: false,
+            releaseOnEdges: true,
+            sensitivity: 1,
+            },
+        });
     }
 
 
