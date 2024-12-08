@@ -2,6 +2,7 @@
 @section('content')
 
 
+
 <section class="to-top-btn white-radius-hover position-fixed" id="to-top-btn">
     <i class="bi bi-arrow-up-circle text-white"></i>
 </section>
@@ -144,7 +145,9 @@
                                 </p>
                             </div>
                             <div class="row">
-                                
+                                <ul>
+                                    {{-- <li></li> --}}
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -529,11 +532,55 @@
 <!---------------------------------->
 
 @push('front_js')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const { addDays, format } = window.dateFns;
+
+  const swiperWrapper = document.querySelector('.swiper-wrapper.swiper-date-wrapper');
+
+  if (!swiperWrapper) return;
+
+  // Membuat array dengan 7 hari kalender dari sekarang
+  const today = new Date();
+  const weekDates = Array.from({ length: 7 }, (_, i) => {
+    const date = addDays(today, i); // Tambahkan hari dari hari ini
+    return {
+      day: format(date, 'eee').toLowerCase(), // Ambil nama hari
+      date: format(date, 'dd'), // Ambil angka tanggal
+    };
+  });
+
+  // Kosongkan elemen sebelumnya
+  swiperWrapper.innerHTML = "";
+
+  // Buat elemen slide dengan data dari date-fns
+  weekDates.forEach((item) => {
+    const slideHTML = `
+      <div class="swiper-slide swiper-date-slide py-2">
+        <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
+          <p class="text-day text-uppercase mb-1 py-0">${item.day}</p>
+          <p class="text-date my-0 py-0">${item.date}</p>
+        </div>
+      </div>
+    `;
+    swiperWrapper.insertAdjacentHTML('beforeend', slideHTML);
+  });
+
+  // Inisialisasi Swiper
+  const swiper = new Swiper('.swiper-container', {
+    slidesPerView: 7,
+    spaceBetween: 5,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+});
+
+</script>
 <script type="text/javascript">
     const youtubeToken = "{{ env('YOUTUBE_API_KEY') }}";
     const youtubeChannelId = "UC5LF3CO4omiNMSrKOJUuXzQ";
-
-
 
     function fetchYouTubeData() {
         fetchChannelData();
@@ -622,7 +669,7 @@
             spaceBetween: 10,
             slidesPerView: 1,
             slidesPerGroup: 2,
-            loop: true, .
+            loop: true,
             mousewheel: {
             forceToAxis: false,
             releaseOnEdges: true,
@@ -630,7 +677,6 @@
             },
         });
     }
-
 
     $(document).ready(fetchYouTubeData);
 </script>

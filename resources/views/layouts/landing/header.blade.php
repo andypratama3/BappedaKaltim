@@ -340,7 +340,7 @@
         <div class="container col-12">
             <h3 class="text-capitalize">Postingan</h3>
             <div class="row mt-1">
-                <a href="postingan-artikel.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('artikel.index') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Artikel</p>
                     <p class="fs-9 py-0 my-0">Temukan informasi penting tentang inovasi pembangunan yang mendukung kemajuan daerah.</p>
                 </a>

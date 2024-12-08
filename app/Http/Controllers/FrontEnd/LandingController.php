@@ -43,7 +43,8 @@ class LandingController extends Controller
         }
 
         $agendas = Agenda::orderBy('created_at', 'desc')->get();
-
+        // views posts
+        $posts_list_by_views = PostNew::orderBy('views', 'desc')->take(10)->get();
 
         // app bappeda
 
@@ -53,7 +54,7 @@ class LandingController extends Controller
         // maps / peta
         $maps = Maps::orderBy('name', 'asc')->limit(5)->get();
 
-        return view('landing.index', compact('sliders','news','informations','apps','awards','maps','agendas'));
+        return view('landing.index', compact('sliders','news','informations','apps','awards','maps','agendas','posts_list_by_views'));
     }
 
     public function berita()

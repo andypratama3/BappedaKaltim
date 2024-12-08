@@ -10,7 +10,7 @@ use App\Http\Controllers\FrontEnd\SideDataController;
 
 class BeritaController extends Controller
 {
-    protected $posts;
+    protected $sideDataController;
 
     public function __construct(SideDataController $sideDataController)
     {
@@ -61,8 +61,10 @@ class BeritaController extends Controller
             abort(404, 'Berita tidak ditemukan');
         }
 
+        $posts = $this->datas->datas();
+        $arsip = $this->datas->arsip();
 
-        return view('landing.berita.show', compact('postNew'));
+        return view('landing.berita.show', compact('postNew','arsip','posts'));
     }
 
 }
