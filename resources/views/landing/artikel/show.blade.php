@@ -100,18 +100,7 @@
                                 {!! $postNew->description !!}
                             </p>
 
-                            {{-- <p class="text-justify fs-8 fw-light lh-sm mb-4">
-                                (SA)
-                            </p>
-                            <p class="text-justify fs-8 fw-light lh-sm mb-1">
-                                #RapatEvaluasiKinerja
-                            </p>
-                            <p class="text-justify fs-8 fw-light lh-sm mb-1">
-                                #SekretariatBappeda
-                            </p>
-                            <p class="text-justify fs-8 fw-light lh-sm mb-1">
-                                #BappedaKaltim
-                            </p> --}}
+                        
                         </div>
                     </div>
                 </div>

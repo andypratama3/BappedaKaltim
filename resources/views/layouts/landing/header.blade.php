@@ -53,7 +53,7 @@
                         </a>
                     </li>
                     <li class="nav-item align-items-center mx-1">
-                        <a class="nav-link custom-nav-link text-center px-2 py-2 text-reset text-uppercase" href="ppid.html">ppid</a>
+                        <a class="nav-link custom-nav-link text-center px-2 py-2 text-reset text-uppercase" href="{{ route('ppid.index') }}">ppid</a>
                     </li>
                     <li class="nav-item align-items-center mx-1">
                         <img src="{{ asset('assets/images/indonesia-round-icon.png')}}" alt="" class="nav-link px-2 py-2" style="width: 35px;">
@@ -274,27 +274,27 @@
         <div class="container col-12">
             <h3 class="text-capitalize">unit kerja</h3>
             <div class="row mt-1">
-                <a href="uk-kepala-bappeda.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('landing.kepala_bappeda') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Kepala Bappeda</p>
                     <p class="fs-9 py-0 my-0">Kenali sosok Kepala Bappeda Provinsi Kalimantan Timur dan visinya</p>
                 </a>
-                <a href="uk-sekretariat.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('landing.sekretaris') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Sekretariat</p>
                     <p class="fs-9 py-0 my-0">Ketahui lebih lanjut bagaimana Sekretariat Bappeda Provinsi Kaltim menjalankan peran pentingnya dalam koordinasi administrasi, keuangan, dan operasional untuk mendukung kelancaran tugas seluruh unit</p>
                 </a>
-                <a href="uk-p2epd.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('landing.bidang_perencanaan') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Bidang perencanaan, Pengendalian dan Evaluasi Pembangunan Daerah</p>
                     <p class="fs-9 py-0 my-0">Lihat struktur organisasi Badan Perencanaan Pembangunan Daerah Provinsi Kalimantan Timur untuk memahami pembagian tugas dan fungsi setiap unit</p>
                 </a>
-                <a href="uk-ppm.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('landing.bidang_pemerintahan') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Bidang Pemerintahan dan Pembangunan Manusia</p>
                     <p class="fs-9 py-0 my-0">Temukan peran Bidang Pemerintahan dan Pembangunan Manusia dalam merumuskan kebijakan dan mengembangkan sumber daya manusia serta kesejahteraan rakyat di Bappeda Kaltim</p>
                 </a>
-                <a href="uk-psda.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('landing.bidang_perekonomian') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Bidang Perekonomian dan Sumber Daya Alam</p>
                     <p class="fs-9 py-0 my-0">Simak bagaimana Bidang Perekonomian dan Sumber Daya Alam memainkan peran penting dalam pengembangan kebijakan dan program untuk memaksimalkan potensi sumber daya</p>
                 </a>
-                <a href="uk-infraswil.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('landing.bidang_infrastruktur') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Bidang Infrastruktur dan Kewilayahan</p>
                     <p class="fs-9 py-0 my-0">Dapatkan wawasan tentang koordinasi antar sub bidang dalam penyusunan rencana dan program pembangunan infrastruktur yang efektif dan efisien</p>
                 </a>
@@ -348,15 +348,15 @@
                     <p class="fw-bold py-0 my-2 fs-7">Berita Bappeda</p>
                     <p class="fs-9 py-0 my-0">Ulasan lengkap tentang program unggulan Bappeda yang berkontribusi pada kemajuan wilayah.</p>
                 </a>
-                <a href="postingan-informasi.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('informasi.index') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Informasi</p>
                     <p class="fs-9 py-0 my-0">Dapatkan informasi terbaru tentang program pembangunan daerah yang inovatif dan berdampak</p>
                 </a>
-                <a href="postingan-kpk.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('pembangunan_kaltim.index') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Kinerja Pembangunan Kaltim</p>
                     <p class="fs-9 py-0 my-0">Ketahui perkembangan signifikan dalam kinerja pembangunan Kaltim yang mendorong kemajuan ekonomi daerah</p>
                 </a>
-                <a href="postingan-berita-nasional.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('berita_nasional.index') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Berita Nasional</p>
                     <p class="fs-9 py-0 my-0">Temukan berita terkini tentang perkembangan yang menyentuh berbagai aspek kehidupan bangsa.</p>
                 </a>

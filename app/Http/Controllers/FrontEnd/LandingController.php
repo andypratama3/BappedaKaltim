@@ -81,4 +81,41 @@ class LandingController extends Controller
     {
         return view('landing.peta');
     }
+
+    public function penghargaan()
+    {
+        return view('landing.penghargaan');
+    }
+
+    // Unit Kerja
+    public function kepala_bappeda()
+    {
+        return view('landing.unit-kerja.kepala_bappeda');
+    }
+
+    public function sekretaris()
+    {
+        return view('landing.unit-kerja.sekre');
+    }
+
+    public function bidang_perencanaan()
+    {
+        return view('landing.unit-kerja.bidang_perencanaan');
+    }
+
+    public function bidang_pemerintahan()
+    {
+        return view('landing.unit-kerja.bidang_pemerintahan');
+    }
+
+    public function bidang_perekonomian()
+    {
+        return view('landing.unit-kerja.bidang_perekonomian');
+    }
+
+    public function bidang_infrastruktur()
+    {
+        return view('landing.unit-kerja.bidang_infrastruktur');
+    }
+
 }

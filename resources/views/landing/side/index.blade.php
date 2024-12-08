@@ -4,7 +4,7 @@
             <div class="post-searching-container post-sidebar-container position-relative px-3 py-4">
                 <div class="title-content d-flex align-items-center justify-content-between mb-3">
                     @php
-
+                        // Mapping route dengan kategori yang sesuai
                         $titles = [
                             'berita.index' => 'Berita',
                             'artikel.index' => 'Artikel',
@@ -15,8 +15,11 @@
                         ];
 
                         $currentRouteName = Route::currentRouteName();
+
+                        // Judul berdasarkan rute aktif atau fallback ke 'Pencarian'
                         $title = $titles[$currentRouteName] ?? 'Pencarian';
 
+                        // Tentukan rute yang digunakan berdasarkan kondisi
                         $searchRoute = in_array($currentRouteName, [
                             'berita.index',
                             'artikel.index',
@@ -33,12 +36,21 @@
                     <hr class="hr-title-black flex-grow-1 ms-3">
                 </div>
 
-                <form action="{{ route($searchRoute) }}" method="GET" class="input-search position-relative">
-                    <input type="search" name="search" class="custom-form-control m-0 p-2 w-100" placeholder="Masukkan Keyword...">
+                <form
+                    action="{{ route($searchRoute) }}"
+                    method="GET"
+                    class="input-search position-relative">
+                    @if ($searchRoute === 'berita.index')
+                        <input type="search" name="search" class="custom-form-control m-0 p-2 w-100" placeholder="Masukkan Keyword...">
+                    @else
+                        <input type="search" name="search" class="custom-form-control m-0 p-2 w-100" placeholder="Keyword untuk {{ $title }}...">
+                    @endif
                     <i class="bi bi-search icon-search m-0 p-0"></i>
                 </form>
             </div>
+
         </div>
+
 
         <div class="col-12 m-0 mb-5 p-0">
             <div class="post-content-item post-sidebar-container position-relative px-3 py-4">
@@ -65,7 +77,7 @@
                         $categoryName = $post->category->name;
 
                         // Jika kategori ditemukan dalam map, gunakan rutenya, jika tidak gunakan 'lainnya.show'
-                        $routeName = $routeMap[$categoryName] ?? 'lainnya.show';
+                        $routeName = $routeMap[$categoryName] ?? 'berita.show';
 
                         // Buat URL berdasarkan apakah rutenya memerlukan parameter
                         $url = $routeName === 'lainnya.show'

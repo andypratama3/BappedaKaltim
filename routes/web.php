@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 // front-end
 use App\Http\Controllers\Dashboard\PioController;
-use App\Http\Controllers\Dashboard\MapsController;
+use App\Http\Controllers\FrontEnd\PpidController;
 
+use App\Http\Controllers\Dashboard\MapsController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\FrontEnd\BeritaController;
@@ -16,16 +17,19 @@ use App\Http\Controllers\FrontEnd\ArtikelController;
 use App\Http\Controllers\FrontEnd\LandingController;
 use App\Http\Controllers\Dashboard\PejabatController;
 use App\Http\Controllers\FrontEnd\SideDataController;
+use App\Http\Controllers\FrontEnd\InformasiController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SubBidangController;
 use App\Http\Controllers\FrontEnd\DataCenterController;
 use App\Http\Controllers\Dashboard\AppBappedaController;
-use App\Http\Controllers\Dashboard\PenghargaanController;
-use App\Http\Controllers\Dashboard\Post\PostNewsController;
 
 // Dashboard
+use App\Http\Controllers\Dashboard\PenghargaanController;
+use App\Http\Controllers\Dashboard\Post\PostNewsController;
 use App\Http\Controllers\Dashboard\WelcomeSliderController;
+use App\Http\Controllers\FrontEnd\BeritaNasionalController;
 use App\Http\Controllers\Dashboard\Post\CategoryPostController;
+use App\Http\Controllers\FrontEnd\KinerjaPembangunanController;
 use App\Http\Controllers\Dashboard\CategoryDataCenterController;
 use App\Http\Controllers\Dashboard\DataCenterController as DashboardDataCenterController;
 
@@ -40,20 +44,44 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/profile', [LandingController::class, 'profil'])->name('landing.profile');
     Route::get('/tupoksi', [LandingController::class, 'tupoksi'])->name('landing.tupoksi');
     Route::get('/struktur-organisasi', [LandingController::class, 'struktur'])->name('landing.struktur');
+    Route::get('/peta', [LandingController::class, 'peta'])->name('landing.peta');
+    Route::get('/penghargaan', [LandingController::class, 'penghargaan'])->name('landing.penghargaan');
+    Route::get('/kepala-bappeda', [LandingController::class, 'kepala_bappeda'])->name('landing.kepala_bappeda');
+    Route::get('/sekretaris', [LandingController::class, 'sekretaris'])->name('landing.sekretaris');
+    Route::get('/bidang-perencanaan', [LandingController::class, 'bidang_perencanaan'])->name('landing.bidang_perencanaan');
+    Route::get('/bidang-pemerintahan', [LandingController::class, 'bidang_pemerintahan'])->name('landing.bidang_pemerintahan');
+    Route::get('/bidang-perekonomian', [LandingController::class, 'bidang_perekonomian'])->name('landing.bidang_perekonomian');
+    Route::get('/bidang-infrastruktur', [LandingController::class, 'bidang_infrastruktur'])->name('landing.bidang_infrastruktur');
 
     // berita
     Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
     Route::get('/berita/{slug}/detail', [BeritaController::class, 'show'])->name('berita.show');
 
+    Route::get('/berita-nasional', [BeritaNasionalController::class, 'index'])->name('berita_nasional.index');
+    Route::get('/berita-nasional/{slug}/detail', [BeritaNasionalController::class, 'show'])->name('berita_nasional.show');
+
     Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
     Route::get('/artikel/{slug}/detail', [ArtikelController::class, 'show'])->name('artikel.show');
 
-    Route::get('/lainnya/{slug}/detail', [SideDataController::class, 'show'])->name('lainnya.show');
+    Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi.index');
+    Route::get('/informasi/{slug}/detail', [InformasiController::class, 'show'])->name('informasi.show');
+
+    Route::get('/kinerja-pembangunan-kaltim', [KinerjaPembangunanController::class, 'index'])->name('pembangunan_kaltim.index');
+    Route::get('/kinerja-pembangunan-kaltim/{slug}/detail', [KinerjaPembangunanController::class, 'show'])->name('pembangunan_kaltim.show');
+
+    // Route::get('/lainnya/{slug}/detail', [SideDataController::class, 'show'])->name('lainnya.show');
 
     Route::get('data-center', [DataCenterController::class, 'index'])->name('data-center.index');
     // Route::get('data-center', [DataCenterController::class, 'index'])->name('data-center.index');
     Route::get('data-center/category/{slug}', [DataCenterController::class, 'show'])->name('data-center.category.show');
     Route::get('data-center/category/download/{slug}', [DataCenterController::class, 'download'])->name('data-center.category.download');
+
+
+    // PPID
+    Route::group(['prefix' => 'ppid'], function () {
+        Route::get('/', [PpidController::class, 'index'])->name('ppid.index');
+
+    });
 });
 
 
