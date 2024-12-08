@@ -16,6 +16,7 @@ class Pio extends Model
         'name',
         'nik',
         'email',
+        'ktp',
         'jenis',
         'akta_kelahiran',
         'telp',

@@ -12,4 +12,9 @@ class PpidController extends Controller
         return view('landing.ppid.index');
     }
 
+    public function pio()
+    {
+        return view('landing.ppid.pio');
+    }
+
 }

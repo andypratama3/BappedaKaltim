@@ -29,12 +29,15 @@
     <!-- Swiper Banner -->
     <div class="swiper swiper-banner">
         <div class="swiper-wrapper swiper-banner-wrapper">
-            @forelse($sliders as $slider)
             <div class="swiper-slide swiper-banner-slide">
-                <img src="{{ asset('storage/slider/'.$slider->image)}}"/>
+                <img src="{{ asset('assets/images/selayang-pandang-1.jpg') }}"/>
             </div>
-            @empty
-            @endforelse
+            <div class="swiper-slide swiper-banner-slide">
+                <img src="{{ asset('assets/images/selayang-pandang-1.jpg') }}"/>
+            </div>
+            <div class="swiper-slide swiper-banner-slide">
+                <img src="{{ asset('assets/images/selayang-pandang-1.jpg') }}"/>
+            </div>
         </div>
     </div>
     <!-- Swiper Banner End -->
@@ -100,7 +103,7 @@
                                                    {{ \Carbon\Carbon::parse($item->created_at)->locale('id')->translatedFormat('d F Y') }}
                                                 </p>
                                                 <p class="description text-white">
-                                                    {!! $item->description !!}
+                                                    {!! Str::substr(strip_tags($item->description), 0, 300) !!}
                                                 </p>
                                                 <a href="#" class="detail-primary-btn d-flex align-items-center justify-content-center text-capitalize text-decoration-none text-white gap-3">
                                                     baca selengkapnya
@@ -145,9 +148,23 @@
                                 </p>
                             </div>
                             <div class="row">
-                                <ul>
-                                    {{-- <li></li> --}}
+                                @forelse ($news as $item)
+                                <ul class="list-group list-group-flush">
+                                    @if(in_array($item->category->name, ['Berita', 'Artikel']))
+                                    <li class="list-group-item"><a href="{{ route('berita.show', $item->slug . '.' . Str::slug($item->title)) }}" class="btn btn-primary btn-sm">{{ $item->title }}</a></li>
+                                    @elseif($item->category->name == 'Infromasi')
+                                    <li class="list-group-item"><a href="{{ route('informasi.show', $item->slug . '.' . Str::slug($item->title)) }}" class="btn btn-primary btn-sm">{{ $item->title }}</a></li>
+                                    @elseif($item->category->name == 'Berita Nasional')
+                                    <li class="list-group-item"><a href="{{ route('berita-nasional.show', $item->slug . '.' . Str::slug($item->title)) }}" class="btn btn-primary btn-sm">{{ $item->title }}</a></li>
+                                    @elseif($item->category->name == 'Kinerja Pembangunan Kaltim')
+                                    <li class="list-group-item"><a href="{{ route('pembangunan_kaltim.show', $item->slug . '.' . Str::slug($item->title)) }}" class="btn btn-primary btn-sm">{{ $item->title }}</a></li>
+                                    @endif
                                 </ul>
+                                @empty
+                                <ul>
+                                    <li class="list-group-item">Tidak Ada Data</li>
+                                </ul>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -163,9 +180,9 @@
                         <!-- Swiper Information -->
                         <div class="swiper swiper-information">
                             <div class="swiper-wrapper swiper-information-wrapper">
-                                @forelse($informations as $information)
+                                @forelse($sliders as $slider)
                                 <div class="swiper-slide swiper-information-slide">
-                                    <img src="{{ asset('storage/post/'. $information->image)}}" />
+                                    <img src="{{ asset('storage/slider/'. $slider->image)}}" />
                                 </div>
                                 @empty
                                 <div class="swiper-slide swiper-information-slide">
@@ -198,48 +215,7 @@
                                         <i class="bi bi-chevron-left icon-chevron-left text-black"></i>
                                     </div>
                                     <div class="swiper-wrapper swiper-date-wrapper">
-                                        <div class="swiper-slide swiper-date-slide py-2 active">
-                                            <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
-                                                <p class="text-day text-uppercase mb-1 py-0">sen</p>
-                                                <p class="text-date my-0 py-0">11</p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide swiper-date-slide py-2">
-                                            <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
-                                                <p class="text-day text-uppercase mb-1 py-0">sel</p>
-                                                <p class="text-date my-0 py-0">12</p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide swiper-date-slide py-2">
-                                            <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
-                                                <p class="text-day text-uppercase mb-1 py-0">rab</p>
-                                                <p class="text-date my-0 py-0">13</p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide swiper-date-slide py-2">
-                                            <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
-                                                <p class="text-day text-uppercase mb-1 py-0">kam</p>
-                                                <p class="text-date my-0 py-0">14</p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide swiper-date-slide py-2">
-                                            <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
-                                                <p class="text-day text-uppercase mb-1 py-0">jum</p>
-                                                <p class="text-date my-0 py-0">15</p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide swiper-date-slide py-2">
-                                            <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
-                                                <p class="text-day text-uppercase mb-1 py-0">sab</p>
-                                                <p class="text-date my-0 py-0">16</p>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide swiper-date-slide py-2">
-                                            <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
-                                                <p class="text-day text-uppercase mb-1 py-0">min</p>
-                                                <p class="text-date my-0 py-0">17</p>
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <div class="swiper-date-next d-flex align-items-center justify-content-end">
                                         <i class="bi bi-chevron-right icon-chevron-right text-black"></i>
@@ -497,16 +473,16 @@
 <!---------------------------------->
 <section class="youtube-section position-relative d-flex justify-content-center py-5">
     <div class="container custom-container ">
-        <div class="row  d-flex align-items-center justify-content-center">
-            <div class="col-12 ">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-12">
                 <div class="video-container mx-0">
-                    <!-- sementara pakai img nanti pakai API -->
+                    <!-- Video iframe will dynamically load here -->
                 </div>
             </div>
         </div>
-        <div class="row ">
-            <div class="col-lg-6 col-md-12  d-flex flex-column align-items-start">
-                <div class="subscriber-container d-flex align-items-center ">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 d-flex flex-column align-items-start">
+                <div class="subscriber-container d-flex align-items-center">
                     <img src="https://yt3.ggpht.com/QGy7EQetWM80rBfAZKnggapwsYhp_DO5v74_VfzYn_ayBAWWVXKa7YBV1jfvSJHsSsjRZ7yNlYo=s176-c-k-c0x00ffffff-no-rj-mo" alt="youtube image">
                     <div class="subscriber-content d-flex flex-column align-items-start mx-3">
                         <p class="name text-white">Bappeda Kaltim</p>
@@ -515,140 +491,196 @@
                 </div>
                 <h4 class="text-connect-youtube text-white fw-bold mx-0 mt-3 p-0">Terhubung dengan Bappeda Provinsi Kalimantan Timur</h4>
             </div>
-            <div class="col-lg-6 col-md-12 ">
-                <!-- Swiper Youtube -->
+            <div class="col-lg-6 col-md-12">
+                <!-- Swiper Youtube Carousel -->
                 <div class="swiper swiper-youtube" id="swiper-youtube">
                     <div class="swiper-wrapper swiper-youtube-wrapper" id="swiper-youtube-wrapper">
-
                     </div>
+                    <!-- Swiper navigation buttons -->
                 </div>
-                <!-- Swiper Youtube -->
             </div>
         </div>
     </div>
 </section>
-<!---------------------------------->
-<!--------- Youtube End ------------>
-<!---------------------------------->
 
 @push('front_js')
+<script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-  const { addDays, format } = window.dateFns;
+    document.addEventListener('DOMContentLoaded', () => {
+      const { format, addDays, startOfMonth, endOfMonth } = dateFns;
 
-  const swiperWrapper = document.querySelector('.swiper-wrapper.swiper-date-wrapper');
+      // Buat array tanggal untuk bulan ini
+      const createDatesArrayToEndOfThisMonth = () => {
+        const dates = [];
+        const today = new Date();
+        const startOfThisMonth = startOfMonth(today);
+        const endOfThisMonth = endOfMonth(today);
 
-  if (!swiperWrapper) return;
+        let currentDate = new Date(startOfThisMonth);
 
-  // Membuat array dengan 7 hari kalender dari sekarang
-  const today = new Date();
-  const weekDates = Array.from({ length: 7 }, (_, i) => {
-    const date = addDays(today, i); // Tambahkan hari dari hari ini
-    return {
-      day: format(date, 'eee').toLowerCase(), // Ambil nama hari
-      date: format(date, 'dd'), // Ambil angka tanggal
-    };
-  });
+        while (currentDate <= endOfThisMonth) {
+          dates.push(new Date(currentDate));
+          currentDate = addDays(currentDate, 1);
+        }
 
-  // Kosongkan elemen sebelumnya
-  swiperWrapper.innerHTML = "";
+        return dates;
+      };
 
-  // Buat elemen slide dengan data dari date-fns
-  weekDates.forEach((item) => {
-    const slideHTML = `
-      <div class="swiper-slide swiper-date-slide py-2">
-        <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
-          <p class="text-day text-uppercase mb-1 py-0">${item.day}</p>
-          <p class="text-date my-0 py-0">${item.date}</p>
-        </div>
-      </div>
-    `;
-    swiperWrapper.insertAdjacentHTML('beforeend', slideHTML);
-  });
+      // Render tanggal ke Swiper
+      const renderDates = (dates) => {
+        const swiperWrapper = document.querySelector("#swiper-date .swiper-wrapper");
 
-  // Inisialisasi Swiper
-  const swiper = new Swiper('.swiper-container', {
-    slidesPerView: 7,
-    spaceBetween: 5,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  });
-});
+        if (!swiperWrapper) {
+          console.error("Swiper wrapper tidak ditemukan di DOM.");
+          return;
+        }
 
+
+
+        swiperWrapper.innerHTML = ''; // Bersihkan konten sebelumnya
+
+        const today = format(new Date(), 'yyyy-MM-dd');
+        let activeIndex = 0;
+
+        dates.forEach((date, index) => {
+          const formattedDay = format(date, 'EEE').toLowerCase(); // Contoh: sen, sel
+          const formattedDate = format(date, 'dd'); // Contoh: 01, 02
+          const formattedFullDate = format(date, 'yyyy-MM-dd'); // Contoh: 2024-11-01
+
+          const slideEl = document.createElement('div');
+          slideEl.classList.add('swiper-slide', 'swiper-date-slide', 'py-2');
+          slideEl.setAttribute('data-date', formattedFullDate); // Tambahkan atribut data-date
+
+          // Konten slide
+          const content = `
+            <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
+                <p class="text-day text-uppercase mb-1 py-0">${formattedDay}</p>
+                <p class="text-date my-0 py-0">${formattedDate}</p>
+            </div>
+          `;
+          slideEl.innerHTML = content;
+
+          // Tambahkan kelas 'active' jika tanggal cocok dengan hari ini
+          if (formattedFullDate === today) {
+            slideEl.classList.add('active');
+            activeIndex = index; // Simpan index slide aktif
+          }
+
+          // Event listener untuk klik
+          slideEl.addEventListener('click', () => {
+            console.log(`Slide clicked! Date: ${formattedFullDate}`);
+
+            // Hapus kelas 'active' dari semua slide
+            swiperWrapper.querySelectorAll('.swiper-date-slide').forEach((slide) => {
+              slide.classList.remove('active');
+            });
+
+            // Tambahkan kelas 'active' ke slide yang diklik
+            slideEl.classList.add('active');
+          });
+
+          // Tambahkan slide ke wrapper
+          swiperWrapper.appendChild(slideEl);
+        });
+
+        return activeIndex; // Kembalikan index aktif
+      };
+
+      // Inisialisasi Swiper dan render slide tanggal
+      const dates = createDatesArrayToEndOfThisMonth();
+      const activeIndex = renderDates(dates);
+
+      const swiperDate = new Swiper("#swiper-date", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        navigation: {
+          nextEl: '.swiper-date-next',
+          prevEl: '.swiper-date-prev',
+          clickable: true,
+        },
+        loop: false,
+      });
+
+      // Pindahkan swiper ke slide aktif
+      swiperDate.slideTo(activeIndex);
+    });
 </script>
+
 <script type="text/javascript">
     const youtubeToken = "{{ env('YOUTUBE_API_KEY') }}";
     const youtubeChannelId = "UC5LF3CO4omiNMSrKOJUuXzQ";
 
     function fetchYouTubeData() {
-        fetchChannelData();
+        // Fetch and initialize data
         fetchChannelVideos();
-    }
-
-    function fetchChannelData() {
-        $.ajax({
-            url: `https://youtube.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${youtubeChannelId}&key=${youtubeToken}`,
-            type: 'GET',
-            success: function(data) {
-                if (data.items && data.items.length > 0) {
-                    const channel = data.items[0];
-                    const channelThumbnail = channel.snippet.thumbnails.default.url;
-                    const channelName = channel.snippet.title;
-                    const subscriberCount = channel.statistics.subscriberCount;
-
-                    $('#youtube-profile').attr('src', channelThumbnail);
-                    $('#youtube-name').html(`<a href="https://www.youtube.com/channel/${youtubeChannelId}" target="_blank" style="color: #ffffff;">${channelName}</a>`);
-                    $('#youtube-subscriber').text(`${subscriberCount} Subscribers`);
-                }
-            },
-            error: function(xhr) {
-                console.error("Failed to fetch channel data:", xhr.responseJSON.error.message);
-            }
-        });
     }
 
     function fetchChannelVideos() {
         $.ajax({
             url: `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${youtubeChannelId}&maxResults=5&order=date&key=${youtubeToken}`,
-            type: 'GET',
-            success: function(data) {
-                if (data.items) {
-                    appendVideosToCarousel(data.items);
-                    initializeSwiper();
-                }
-            },
-            error: function(xhr) {
-                console.error("Failed to fetch videos:", xhr.responseJSON.error.message);
+            type: 'GET'
+        })
+        .done(function (data) {
+            if (data.items) {
+                appendVideosToCarousel(data.items);
+                initializeSwiper();
             }
+        })
+        .fail(function (error) {
+            console.error("Error fetching YouTube videos:", error);
         });
     }
 
     function appendVideosToCarousel(videos) {
-        const carousel = document.getElementById('swiper-youtube-wrapper');
+        const carouselWrapper = document.getElementById('swiper-youtube-wrapper');
+        carouselWrapper.innerHTML = ''; // Clear carousel slides before appending
 
-        videos.forEach((video) => {
-            const slide = document.createElement("div");
-            slide.className = "swiper-slide swiper-youtube-slide d-flex flex-column align-items-center justify-content-center";
+        videos.forEach(video => {
+            const slide = document.createElement('div');
+            slide.classList.add('swiper-slide', 'swiper-youtube-slide', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center');
             slide.innerHTML = `
                 <a href="https://www.youtube.com/watch?v=${video.id.videoId}" target="_blank">
-                    <img src="${video.snippet.thumbnails.default.url}" alt="${video.snippet.title}" class="video-thumbnail">
+                    <img src="${video.snippet.thumbnails.medium.url}" alt="${video.snippet.title}" class="video-thumbnail">
                     <p class="title-content text-white text-justify">${video.snippet.title}</p>
                 </a>
             `;
-            carousel.appendChild(slide);
+            carouselWrapper.appendChild(slide);
         });
     }
-    const swiper = new Swiper('.swiper-youtube', {
-        on: {
-            slideChange: function () {
-                const currentSlide = swiper.slides[swiper.activeIndex];
-                const videoId = $(currentSlide).find('a').attr('href').split('v=')[1];
-                updateVideoContainer(videoId);
+
+    let swiperInstance;
+
+    function initializeSwiper() {
+        swiperInstance = new Swiper('#swiper-youtube', {
+            spaceBetween: 10,
+            slidesPerView: 4,
+            mousewheel: {
+                forceToAxis: false,
+                releaseOnEdges: true,
+                sensitivity: 1,
+            },
+            // loop:
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            on: {
+                slideChange: function () {
+                    const activeSlide = swiperInstance.slides[swiperInstance.activeIndex];
+                    const activeVideoLink = $(activeSlide).find('a').attr('href');
+                    const videoId = activeVideoLink.split('v=')[1];
+                    updateVideoContainer(videoId);
+                }
             }
-        }
-    });
+        });
+
+
+        // Trigger video loading for the first slide on initialization
+        const firstSlide = swiperInstance.slides[swiperInstance.activeIndex];
+        const firstVideoLink = $(firstSlide).find('a').attr('href');
+        const firstVideoId = firstVideoLink.split('v=')[1];
+        updateVideoContainer(firstVideoId);
+    }
 
     function updateVideoContainer(videoId) {
         const videoContainer = $('.video-container');
@@ -664,23 +696,8 @@
         `);
     }
 
-    function initializeSwiper() {
-        const swiperYoutube = new Swiper("#swiper-youtube", {
-            spaceBetween: 10,
-            slidesPerView: 1,
-            slidesPerGroup: 2,
-            loop: true,
-            mousewheel: {
-            forceToAxis: false,
-            releaseOnEdges: true,
-            sensitivity: 1,
-            },
-        });
-    }
-
+    // Initialize once the DOM is ready
     $(document).ready(fetchYouTubeData);
 </script>
 @endpush
-
-
 @endsection

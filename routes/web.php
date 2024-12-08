@@ -4,14 +4,14 @@ use Illuminate\Support\Facades\Route;
 
 
 // front-end
-use App\Http\Controllers\Dashboard\PioController;
-use App\Http\Controllers\FrontEnd\PpidController;
+use App\Http\Controllers\PioController;
 
+use App\Http\Controllers\FrontEnd\PpidController;
 use App\Http\Controllers\Dashboard\MapsController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\FrontEnd\AgendaController;
 use App\Http\Controllers\FrontEnd\BeritaController;
-use App\Http\Controllers\Dashboard\AgendaController;
 use App\Http\Controllers\Dashboard\BidangController;
 use App\Http\Controllers\FrontEnd\ArtikelController;
 use App\Http\Controllers\FrontEnd\LandingController;
@@ -20,10 +20,10 @@ use App\Http\Controllers\FrontEnd\SideDataController;
 use App\Http\Controllers\FrontEnd\InformasiController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SubBidangController;
-use App\Http\Controllers\FrontEnd\DataCenterController;
-use App\Http\Controllers\Dashboard\AppBappedaController;
 
 // Dashboard
+use App\Http\Controllers\FrontEnd\DataCenterController;
+use App\Http\Controllers\Dashboard\AppBappedaController;
 use App\Http\Controllers\Dashboard\PenghargaanController;
 use App\Http\Controllers\Dashboard\Post\PostNewsController;
 use App\Http\Controllers\Dashboard\WelcomeSliderController;
@@ -31,7 +31,10 @@ use App\Http\Controllers\FrontEnd\BeritaNasionalController;
 use App\Http\Controllers\Dashboard\Post\CategoryPostController;
 use App\Http\Controllers\FrontEnd\KinerjaPembangunanController;
 use App\Http\Controllers\Dashboard\CategoryDataCenterController;
+use App\Http\Controllers\Dashboard\PioController as DashboardPioController;
+use App\Http\Controllers\Dashboard\AgendaController as DashboardAgendaController;
 use App\Http\Controllers\Dashboard\DataCenterController as DashboardDataCenterController;
+
 
 // Route::get('/', function () {
 //     return view('landing.index');
@@ -76,10 +79,21 @@ Route::group(['prefix' => '/'], function () {
     Route::get('data-center/category/{slug}', [DataCenterController::class, 'show'])->name('data-center.category.show');
     Route::get('data-center/category/download/{slug}', [DataCenterController::class, 'download'])->name('data-center.category.download');
 
+    // Agenda
+    Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda.index');
+    Route::get('/agenda/umum/', [AgendaController::class, 'index'])->name('agenda.umum');
+    Route::get('/agenda/bidang perencanaan/', [AgendaController::class, 'index'])->name('agenda.perencanaan');
+    Route::get('/agenda/bidang pemerintahan/', [AgendaController::class, 'index'])->name('agenda.pemerintahan');
+    Route::get('/agenda/bidang perekonomian/', [AgendaController::class, 'index'])->name('agenda.perekonomian');
+    Route::get('/agenda/bidang infrastruktur/', [AgendaController::class, 'index'])->name('agenda.infrastruktur');
 
     // PPID
     Route::group(['prefix' => 'ppid'], function () {
         Route::get('/', [PpidController::class, 'index'])->name('ppid.index');
+
+        // permhohonan Informasi Online
+        Route::get('permohonan-informasi-online', [PpidController::class, 'pio'])->name('ppid.pio');
+        Route::post('permohonan-informasi-online/store', [PioController::class, 'store'])->name('ppid.pio.store');
 
     });
 });
@@ -92,14 +106,14 @@ Route::group(['prefix' => '/'], function () {
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', DashboardController::class)->name('dashboard');
 
-    Route::resource('agenda', AgendaController::class, ['names' => 'dashboard.agenda']);
+    Route::resource('agenda', DashboardAgendaController::class, ['names' => 'dashboard.agenda']);
     Route::resource('slider', WelcomeSliderController::class, ['names'=> 'dashboard.sliders']);
     Route::resource('penghargaan', PenghargaanController::class, ['names' => 'dashboard.penghargaan']);
     Route::resource('category-data-center', CategoryDataCenterController::class, ['names' => 'dashboard.category.data.center']);
     Route::resource('data-center', DashboardDataCenterController::class, ['names'=> 'dashboard.data.center'])->except('show');
     Route::resource('maps', MapsController::class, ['names' => 'dashboard.maps'])->except('show');
     Route::resource('app', AppBappedaController::class, ['names' => 'dashboard.app-bappeda']);
-    Route::resource('permohonan-informasi-online', PioController::class, ['names' => 'dashboard.pio']);
+    Route::resource('permohonan-informasi-online', DashboardPioController::class, ['names' => 'dashboard.pio']);
 
     Route::resource('bidang', BidangController::class, ['names' => 'dashboard.bidang']);
     Route::resource('sub-bidang', SubBidangController::class, ['names' => 'dashboard.sub.bidang']);
@@ -114,7 +128,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     // Prefix for Datatable
     Route::group(['prefix' => 'datas'], function () {
         Route::get('sliders', [WelcomeSliderController::class, 'data_table'])->name('dashboard.sliders.data_table');
-        Route::get('agendas', [AgendaController::class, 'data_table'])->name('dashboard.agenda.data_table');
+        Route::get('agendas', [DashboardAgendaController::class, 'data_table'])->name('dashboard.agenda.data_table');
         Route::get('penghargaan', [PenghargaanController::class, 'data_table'])->name('dashboard.penghargaan.data_table');
         Route::get('category-data-center', [CategoryDataCenterController::class, 'data_table'])->name('dashboard.category.data.center.data_table');
         Route::get('data-center', [DashboardDataCenterController::class, 'data_table'])->name('dashboard.data.center.data_table');
@@ -126,7 +140,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         Route::get('bidang-datas', [BidangController::class, 'data_table'])->name('dashboard.bidang.data_table');
         Route::get('sub-bidang-datas', [SubBidangController::class, 'data_table'])->name('dashboard.sub.bidang.data_table');
         Route::get('pejabats-datas', [PejabatController::class, 'data_table'])->name('dashboard.pejabat.data_table');
-        Route::get('pios-datas', [PioController::class, 'data_table'])->name('dashboard.pio.data_table');
+        Route::get('pios-datas', [DashboardPioController::class, 'data_table'])->name('dashboard.pio.data_table');
     });
 
     Route::group(['prefix' => 'settings'], function () {

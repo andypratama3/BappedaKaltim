@@ -2,7 +2,7 @@
     <div class="container d-flex justify-content-between px-0">
         <nav class="navbar navbar-expand-xl py-0 d-flex justify-content-between w-100">
             <div class="logo d-flex align-items-center">
-                <a class="navbar-brand py-0" href="ppid.html"><img src="assets/images/ppid/logo-ppid-bappeda.png"alt=""></a>
+                <a class="navbar-brand py-0" href="{{ route('ppid.index') }}"><img src="{{ asset('assets/images/ppid/logo-ppid-bappeda.png') }}"alt=""></a>
             </div>
             <a class="d-inline-block d-lg-block d-xl-none d-xxl-none  nav-toggler text-decoration-none"  data-bs-toggle="offcanvas" href="#offcanvas-ppid-navbar" aria-controls="offcanvasExample">
                 <i class="ti ti-menu-2 text-warning text-white"></i>
@@ -10,7 +10,7 @@
             <div class="collapse navbar-collapse float-end mx-0 px-0" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item align-items-center mx-1">
-                        <a class="nav-link custom-nav-link text-center px-2 py-2 text-reset" href="index.html">
+                        <a class="nav-link custom-nav-link text-center px-2 py-2 text-reset" href="{{ route('landing.index') }}">
                             Website Utama BAPPEDA
                         </a>
                     </li>
@@ -38,8 +38,8 @@
                             <i class="bi bi-chevron-down icon-chevron-down"></i>
                         </a>
                     </li>
-                    <li class="nav-item align-items-center mx-1">
-                        <a class="nav-link custom-nav-link text-center px-2 py-2 text-reset" href="#">
+                    <li class="nav-item align-items-center mx-1 {{ Route::is('ppid.pio') ? 'active' : '' }}">
+                        <a class="nav-link custom-nav-link text-center px-2 py-2 text-reset" href="{{ route('ppid.pio') }}">
                             Permohonan Informasi
                         </a>
                     </li>

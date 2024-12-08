@@ -47,12 +47,13 @@ class LandingController extends Controller
         $posts_list_by_views = PostNew::orderBy('views', 'desc')->take(10)->get();
 
         // app bappeda
-
         $apps = AppBappeda::orderBy('orders', 'desc')->get();
         // rewards
         $awards = Penghargaan::orderBy('created_at', 'asc')->limit(5)->get();
         // maps / peta
         $maps = Maps::orderBy('name', 'asc')->limit(5)->get();
+
+        $news = PostNew::where('status', 'published')->orderBy('created_at', 'desc')->limit(10)->get();
 
         return view('landing.index', compact('sliders','news','informations','apps','awards','maps','agendas','posts_list_by_views'));
     }

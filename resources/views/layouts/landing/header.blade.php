@@ -309,23 +309,23 @@
         <div class="container col-12">
             <h3 class="text-capitalize">agenda</h3>
             <div class="row mt-1">
-                <a href="agenda-umum.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('agenda.umum') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Umum</p>
                     <p class="fs-9 py-0 my-0">Telusuri agenda terkini yang mendukung pelaksanaan berbagai program strategis untuk pembangunan dan pelayanan publik.</p>
                 </a>
-                <a href="agenda-p2epd.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('agenda.perencanaan') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Bidang Perencanaan, Pengendalian dan Evaluasi Pembangunan Daerah</p>
                     <p class="fs-9 py-0 my-0">Telusuri agenda prioritas Bidang Perencanaan, Pengendalian dan Evaluasi Pembangunan Daerah yang dirancang untuk meningkatkan efektivitas perencanaan pembangunan daerah.</p>
                 </a>
-                <a href="agenda-ppm.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('agenda.pemerintahan') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Bidang Pemerintahan dan Pembangunan Manusia</p>
                     <p class="fs-9 py-0 my-0">Telusuri jadwal agenda Bidang Pemerintahan dan Pembangunan Manusia yang berfokus pada pengawasan dan evaluasi berkelanjutan terhadap pelaksanaan pembangunan.</p>
                 </a>
-                <a href="agenda-psda.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('agenda.perekonomian') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Bidang Perekonomian dan Sumber Daya Alam</p>
                     <p class="fs-9 py-0 my-0">Telusuri informasi terkini mengenai agenda Bidang Perekonomian dan Sumber Daya Alam yang berfokus pada pemanfaatan sumber daya alam untuk kesejahteraan bersama.</p>
                 </a>
-                <a href="agenda-infraswil.html" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
+                <a href="{{ route('agenda.infrastruktur') }}" class="custom-content-dropdown lh-sm py-1 col-3 text-start text-reset text-decoration-none mt-2">
                     <p class="fw-bold py-0 my-2 fs-7">Bidang Infrastruktur dan Kewilayahan</p>
                     <p class="fs-9 py-0 my-0">Telusuri agenda strategis Bidang Infrastruktur dan Kewilayahan yang mendukung pengembangan infrastruktur demi memperkuat konektivitas wilayah.</p>
                 </a>

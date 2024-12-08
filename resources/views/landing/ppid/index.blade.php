@@ -1,4 +1,4 @@
-@extends('landing.ppid.index')
+@extends('layouts.ppid')
 @section('content')
 
 <section class="breadcrumb-section position-relative d-flex justify-content-center">

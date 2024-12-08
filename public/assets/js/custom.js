@@ -87,6 +87,19 @@ $(document).ready(function () {
 
     // TO TOP BTN //
     const toTopBtn = document.querySelector('.to-top-btn');
+
+    // Function to show/hide the button based on scroll position
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > window.innerHeight / 2) { // 50vh
+            toTopBtn.classList.add('show');
+            toTopBtn.classList.remove('hide');
+        } else {
+            toTopBtn.classList.add('hide');
+            toTopBtn.classList.remove('show');
+        }
+    });
+
+    // Scroll to top functionality
     toTopBtn.addEventListener("click", () => {
         window.scrollTo({
             top: 0,
@@ -113,7 +126,7 @@ $(document).ready(function () {
     // FLOATING SOCMED END //
 
     // SWIPER //
-    var swiperBanner = new Swiper(".swiper-banner", {
+    var swiperBanner = new Swiper("#swiper-banner", {
         spaceBetween: 30,
         effect: "fade",
         autoplay: {
@@ -128,7 +141,7 @@ $(document).ready(function () {
         autoplay: {
             delay: 1500,
             disableOnInteraction: true,
-        }
+        }   
     });
 
     var swiperNews = new Swiper("#swiper-news", {
@@ -206,9 +219,8 @@ $(document).ready(function () {
             clickable: true,
         },
     });
-
+    
     var swiperInformation = new Swiper(".swiper-information", {
-        slidesPerView: 1,
         spaceBetween: 30,
         centeredSlides: true,
         loop: true,
@@ -267,8 +279,8 @@ $(document).ready(function () {
         },
         mousewheel: {
             forceToAxis: false,
-            releaseOnEdges: true,
-            sensitivity: 1,
+            releaseOnEdges: true, 
+            sensitivity: 1, 
         },
     });
 
@@ -283,8 +295,8 @@ $(document).ready(function () {
         },
         mousewheel: {
             forceToAxis: false,
-            releaseOnEdges: true,
-            sensitivity: 1,
+            releaseOnEdges: true, 
+            sensitivity: 1, 
         },
         breakpoints: {
             1200: {
@@ -297,14 +309,14 @@ $(document).ready(function () {
     });
 
 
-    var swiperAppBappeda = new Swiper(".swiper-app-bappeda", {
+    var swiperAppBappeda = new Swiper("#swiper-app-bappeda", {
         spaceBetween: 20,
-        slidesPerView: 1,
+        slidesPerView: 2,
         loop: true,
         mousewheel: {
-            forceToAxis: true,
-            releaseOnEdges: true,
-            sensitivity: 1,
+            forceToAxis: false,
+            releaseOnEdges: true, 
+            sensitivity: 1, 
         },
         autoplay: {
             delay: 3000,
@@ -322,8 +334,8 @@ $(document).ready(function () {
         slidesPerView: 4,
         mousewheel: {
             forceToAxis: false,
-            releaseOnEdges: true,
-            sensitivity: 1,
+            releaseOnEdges: true, 
+            sensitivity: 1, 
         },
     });
 
@@ -332,13 +344,13 @@ $(document).ready(function () {
         slidesPerView: 'auto',
         direction: "vertical",
         mousewheel: true,
-        loop: true,
+        loop: true,  
         autoplay: {
             delay: 2500,
             disableOnInteraction: false,
         },
-        speed: 800,
-        effect: 'slide',
+        speed: 800,  
+        effect: 'slide',  
         transitionTimingFunction: 'ease-in-out',
     });
 
@@ -346,12 +358,31 @@ $(document).ready(function () {
         swiperAllAgenda.update();
     }, 100);
 
+    var swiperPresentAgenda = new Swiper("#swiper-present-agenda", {
+        spaceBetween: 15,
+        slidesPerView: 'auto',
+        direction: "vertical",
+        mousewheel: true,
+        loop: true,  
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        speed: 800,  
+        effect: 'slide',  
+        transitionTimingFunction: 'ease-in-out',
+    });
+
+    setTimeout(() => {
+        swiperPresentAgenda.update();
+    }, 100);
+
 
     document.addEventListener(
         "wheel",
         function (e) {
             const targetElement = e.target.closest("#swiper-date, #swiper-youtube, #swiper-post-category, #swiper-app-bappeda");
-            // console.log("Target element:", targetElement);
+            console.log("Target element:", targetElement);
 
             if (targetElement) {
                 let swiperInstance = null;
@@ -370,21 +401,21 @@ $(document).ready(function () {
                         break;
                 }
 
-                // console.log("Swiper instance:", swiperInstance);
+                console.log("Swiper instance:", swiperInstance);
 
                 if (swiperInstance) {
                     const isAtBeginning = swiperInstance.isBeginning;
                     const isAtEnd = swiperInstance.isEnd;
 
                     if (
-                        (isAtBeginning && e.deltaY < 0) ||
-                        (isAtEnd && e.deltaY > 0)
+                        (isAtBeginning && e.deltaY < 0) || 
+                        (isAtEnd && e.deltaY > 0) 
                     ) {
-                        return;
+                        return; 
                     }
 
                     e.preventDefault();
-                    // console.log("Scroll prevented.");
+                    console.log("Scroll prevented.");
                 }
             }
         },
@@ -396,7 +427,7 @@ $(document).ready(function () {
         swiperNews.autoplay.stop();
     });
     swiperNewsContainer.addEventListener("mouseleave", function() {
-        swiperNews.autoplay.start();
+        swiperNews.autoplay.start(); 
     });
     // SWIPER END //
 
@@ -419,7 +450,6 @@ $(document).ready(function () {
     }
 
     window.onload = function () {
-        document.getElementById("autodate").innerHTML = Date();
+        document.getElementById("autodate").innerHTML = newDate();
     };
-
 });
