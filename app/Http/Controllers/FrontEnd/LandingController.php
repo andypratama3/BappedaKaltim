@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
+use Carbon\Carbon;
 use App\Models\Maps;
 use App\Models\Agenda;
 use App\Models\PostNew;
@@ -57,6 +58,29 @@ class LandingController extends Controller
 
         return view('landing.index', compact('sliders','news','informations','apps','awards','maps','agendas','posts_list_by_views'));
     }
+
+    public function listAgenda(Request $request)
+    {
+        $date = $request->date;
+        $date = Carbon::parse($date)->format('Y-m-d');
+
+        $agendas = Agenda::select('schedule', 'caption','description','location','times','dihadiri')->whereDate('schedule', $date)->orderBy('schedule', 'desc')->get();
+
+        if ($agendas->count() > 0) {
+            return response()->json([
+                'status' => 'success',
+                'date' => $date,
+                'data' => $agendas
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'date' => $date,
+                'message' => 'Agenda Tidak Ditemukan'
+            ]);
+        }
+    }
+
 
     public function berita()
     {

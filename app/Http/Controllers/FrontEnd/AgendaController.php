@@ -24,4 +24,5 @@ class AgendaController extends Controller
 
         return view('landing.agenda.index', compact('agendas', 'title'));
     }
+
 }

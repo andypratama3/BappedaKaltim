@@ -222,47 +222,8 @@
                                     </div>
                                 </div>
                                 <!-- Swiper Date End -->
-                                <div class="detail-agenda-container">
-                                    <div class="agenda-content">
-                                        <p class="title">
-                                            Narasumber Dialog Publik Masyarakat Adat Provinsi Kalimantan Timur Tahun 2024
-                                        </p>
-                                        <p class="location">Hotel Mercure Samarinda</p>
-                                        <div class="bottom-content d-flex align-items-end justify-content-between">
-                                            <p class="time">08.00 WITA s.d. Selesai</p>
-                                            <p class="status text-capitalize">telah selesai</p>
-                                        </div>
-                                    </div>
-                                    <div class="agenda-content">
-                                        <p class="title">
-                                            FGD II Penyusunan Insentif dan Disinsentif Pemanfaatan Ruang Daerah Prorinsi Kalimantan Timur
-                                        </p>
-                                        <p class="location">Hotel Fugo Samarinda</p>
-                                        <div class="bottom-content d-flex align-items-end justify-content-between">
-                                            <p class="time">08.00 WITA s.d. Selesai</p>
-                                            <p class="status text-capitalize">telah selesai</p>
-                                        </div>
-                                    </div>
-                                    <div class="agenda-content">
-                                        <p class="title">
-                                            FGD II Penyusunan Insentif dan Disinsentif Pemanfaatan Ruang Daerah Prorinsi Kalimantan Timur
-                                        </p>
-                                        <p class="location">Hotel Fugo Samarinda</p>
-                                        <div class="bottom-content d-flex align-items-end justify-content-between">
-                                            <p class="time">08.00 WITA s.d. Selesai</p>
-                                            <p class="status text-capitalize">telah selesai</p>
-                                        </div>
-                                    </div>
-                                    <div class="agenda-content">
-                                        <p class="title">
-                                            FGD II Penyusunan Insentif dan Disinsentif Pemanfaatan Ruang Daerah Prorinsi Kalimantan Timur
-                                        </p>
-                                        <p class="location">Hotel Fugo Samarinda</p>
-                                        <div class="bottom-content d-flex align-items-end justify-content-between">
-                                            <p class="time">08.00 WITA s.d. Selesai</p>
-                                            <p class="status text-capitalize">telah selesai</p>
-                                        </div>
-                                    </div>
+                                <div class="detail-agenda-container" id="detail-agenda">
+
                                 </div>
                             </div>
                         </div>
@@ -507,103 +468,149 @@
 <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const { format, addDays, startOfMonth, endOfMonth } = dateFns;
+  const { format, addDays, startOfMonth, endOfMonth } = dateFns;
 
-      // Buat array tanggal untuk bulan ini
-      const createDatesArrayToEndOfThisMonth = () => {
-        const dates = [];
-        const today = new Date();
-        const startOfThisMonth = startOfMonth(today);
-        const endOfThisMonth = endOfMonth(today);
+  // Buat array tanggal untuk bulan ini
+  const createDatesArrayToEndOfThisMonth = () => {
+    const dates = [];
+    const today = new Date();
+    const startOfThisMonth = startOfMonth(today);
+    const endOfThisMonth = endOfMonth(today);
 
-        let currentDate = new Date(startOfThisMonth);
+    let currentDate = new Date(startOfThisMonth);
 
-        while (currentDate <= endOfThisMonth) {
-          dates.push(new Date(currentDate));
-          currentDate = addDays(currentDate, 1);
-        }
+    while (currentDate <= endOfThisMonth) {
+      dates.push(new Date(currentDate));
+      currentDate = addDays(currentDate, 1);
+    }
 
-        return dates;
-      };
+    return dates;
+  };
 
-      // Render tanggal ke Swiper
-      const renderDates = (dates) => {
-        const swiperWrapper = document.querySelector("#swiper-date .swiper-wrapper");
+  // Render tanggal ke Swiper
+  const renderDates = (dates) => {
+    const swiperWrapper = document.querySelector("#swiper-date .swiper-wrapper");
 
-        if (!swiperWrapper) {
-          console.error("Swiper wrapper tidak ditemukan di DOM.");
+    if (!swiperWrapper) {
+      console.error("Swiper wrapper tidak ditemukan di DOM.");
+      return;
+    }
+
+    swiperWrapper.innerHTML = ''; // Bersihkan konten sebelumnya
+
+    const today = format(new Date(), 'yyyy-MM-dd');
+    let activeIndex = 0;
+
+    dates.forEach((date, index) => {
+      const formattedDay = format(date, 'EEE').toLowerCase(); // Contoh: sen, sel
+      const formattedDate = format(date, 'dd'); // Contoh: 01, 02
+      const formattedFullDate = format(date, 'yyyy-MM-dd');
+
+      const slideEl = document.createElement('div');
+      slideEl.classList.add('swiper-slide', 'swiper-date-slide', 'py-2');
+      slideEl.setAttribute('data-date', formattedFullDate);
+
+      // Konten slide
+      const content = `
+        <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
+          <p class="text-day text-uppercase mb-1 py-0">${formattedDay}</p>
+          <p class="text-date my-0 py-0">${formattedDate}</p>
+        </div>
+      `;
+      slideEl.innerHTML = content;
+
+      // Tambahkan kelas 'active' jika tanggal cocok dengan hari ini
+      if (formattedFullDate === today) {
+        slideEl.classList.add('active');
+        fetchAgendaByDate(today);
+        activeIndex = index;
+      }
+
+      // Tambahkan event listener untuk klik
+      slideEl.addEventListener('click', (e) => {
+        // Hapus kelas active dari semua slide
+        swiperWrapper.querySelectorAll('.swiper-date-slide').forEach((slide) => {
+          slide.classList.remove('active');
+        });
+
+        // Tambahkan kelas active ke yang diklik
+        slideEl.classList.add('active');
+
+        // Ambil data agenda untuk tanggal yang diklik
+        const clickedDate = e.currentTarget.getAttribute('data-date');
+        fetchAgendaByDate(clickedDate);
+      });
+
+        // fetch agenda by date
+
+
+      swiperWrapper.appendChild(slideEl);
+    });
+
+    return activeIndex; // Kembalikan index aktif
+  };
+
+  // Fungsi untuk mengambil data agenda berdasarkan tanggal
+  const fetchAgendaByDate = (date) => {
+    fetch(`/agendas/data?date=${date}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const agendaContainer = document.getElementById('detail-agenda');
+
+        if (!agendaContainer) {
+          console.error('Agenda container tidak ditemukan di DOM.');
           return;
         }
 
+        agendaContainer.innerHTML = '';
 
-
-        swiperWrapper.innerHTML = ''; // Bersihkan konten sebelumnya
-
-        const today = format(new Date(), 'yyyy-MM-dd');
-        let activeIndex = 0;
-
-        dates.forEach((date, index) => {
-          const formattedDay = format(date, 'EEE').toLowerCase(); // Contoh: sen, sel
-          const formattedDate = format(date, 'dd'); // Contoh: 01, 02
-          const formattedFullDate = format(date, 'yyyy-MM-dd'); // Contoh: 2024-11-01
-
-          const slideEl = document.createElement('div');
-          slideEl.classList.add('swiper-slide', 'swiper-date-slide', 'py-2');
-          slideEl.setAttribute('data-date', formattedFullDate); // Tambahkan atribut data-date
-
-          // Konten slide
-          const content = `
-            <div class="date-day-content d-flex flex-column align-items-center justify-content-center">
-                <p class="text-day text-uppercase mb-1 py-0">${formattedDay}</p>
-                <p class="text-date my-0 py-0">${formattedDate}</p>
-            </div>
-          `;
-          slideEl.innerHTML = content;
-
-          // Tambahkan kelas 'active' jika tanggal cocok dengan hari ini
-          if (formattedFullDate === today) {
-            slideEl.classList.add('active');
-            activeIndex = index; // Simpan index slide aktif
-          }
-
-          // Event listener untuk klik
-          slideEl.addEventListener('click', () => {
-            console.log(`Slide clicked! Date: ${formattedFullDate}`);
-
-            // Hapus kelas 'active' dari semua slide
-            swiperWrapper.querySelectorAll('.swiper-date-slide').forEach((slide) => {
-              slide.classList.remove('active');
-            });
-
-            // Tambahkan kelas 'active' ke slide yang diklik
-            slideEl.classList.add('active');
+        if (data.status === 'success') {
+          data.data.forEach((agenda) => {
+            const agendaEl = document.createElement('div');
+            agendaEl.classList.add('agenda-content');
+            agendaEl.innerHTML = `
+              <p class="title">${agenda.schedule}</p>
+              <p class="location">${agenda.location}</p>
+              <div class="bottom-content d-flex align-items-end justify-content-between">
+                <p class="time">${agenda.times}</p>
+                <p class="status text-capitalize">${agenda.dihadiri}</p>
+              </div>
+            `;
+            agendaContainer.appendChild(agendaEl);
           });
+        } else {
+          agendaContainer.innerHTML = `<p class="no-agenda-message">Tidak ada agenda untuk tanggal ini.</p>`;
+        }
+      })
+      .catch((error) => {
+        console.error(`Gagal memuat agenda untuk ${date}:`, error);
 
-          // Tambahkan slide ke wrapper
-          swiperWrapper.appendChild(slideEl);
-        });
-
-        return activeIndex; // Kembalikan index aktif
-      };
-
-      // Inisialisasi Swiper dan render slide tanggal
-      const dates = createDatesArrayToEndOfThisMonth();
-      const activeIndex = renderDates(dates);
-
-      const swiperDate = new Swiper("#swiper-date", {
-        spaceBetween: 10,
-        slidesPerView: 4,
-        navigation: {
-          nextEl: '.swiper-date-next',
-          prevEl: '.swiper-date-prev',
-          clickable: true,
-        },
-        loop: false,
+        const agendaContainer = document.getElementById('agenda-content');
+        if (agendaContainer) {
+          agendaContainer.innerHTML = `<p class="no-agenda-message">Gagal memuat agenda untuk tanggal ini.</p>`;
+        }
       });
+  };
 
-      // Pindahkan swiper ke slide aktif
-      swiperDate.slideTo(activeIndex);
-    });
+  // Inisialisasi Swiper dan render slide tanggal
+  const dates = createDatesArrayToEndOfThisMonth();
+  const activeIndex = renderDates(dates);
+
+  const swiperDate = new Swiper("#swiper-date", {
+    spaceBetween: 10,
+    slidesPerView: 4,
+    navigation: {
+      nextEl: '.swiper-date-next',
+      prevEl: '.swiper-date-prev',
+      clickable: true,
+    },
+    loop: false,
+  });
+
+  // Pindahkan swiper ke slide aktif
+  swiperDate.slideTo(activeIndex);
+});
+
 </script>
 
 <script type="text/javascript">
